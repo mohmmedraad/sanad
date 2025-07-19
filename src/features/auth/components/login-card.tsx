@@ -5,19 +5,18 @@ import {
     Card,
     CardContent,
     CardDescription,
+    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
 import { env } from "@/env";
 import { authClient } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
+import { parseAsString, useQueryState } from "nuqs";
 import { toast } from "sonner";
 
 export default function LoginCard() {
-    // const error = useSearch({
-    //     from: "/login/",
-    //     select: (search) => search.error,
-    // });
+    const [error] = useQueryState("error", parseAsString);
 
     const { mutate: handleLogin, isPending } = useMutation({
         mutationFn: async () => {
@@ -32,15 +31,9 @@ export default function LoginCard() {
             }
         },
         onError: () => {
-            toast.error("حدث خطأ أثناء تسجيل الدخول");
+            toast.error("حدثت خطأ أثناء تسجيل الدخول");
         },
     });
-
-    // useEffect(() => {
-    //     if (error) {
-    //         toast.error("حدث خطأ أثناء تسجيل الدخول");
-    //     }
-    // }, [error]);
 
     return (
         <Card>
@@ -67,6 +60,11 @@ export default function LoginCard() {
                     تسجيل الدخول باستخدام Google
                 </Button>
             </CardContent>
+            {!!error && (
+                <CardFooter className="mx-auto text-center text-destructive">
+                    حدثت مشكلة أثناء تسجيل الدخول
+                </CardFooter>
+            )}
         </Card>
     );
 }
