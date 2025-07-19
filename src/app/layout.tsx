@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 
 import Providers from "@/components/providers";
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Cairo } from "next/font/google";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
@@ -11,9 +11,10 @@ export const metadata: Metadata = {
     icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-const geist = Geist({
-    subsets: ["latin"],
-    variable: "--font-geist-sans",
+const cairo = Cairo({
+    subsets: ["arabic"],
+    variable: "--font-cairo",
+    weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 export default function RootLayout({
@@ -22,7 +23,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${geist.variable}`}
+            className={`${cairo.className}`}
             suppressHydrationWarning
         >
             <body>
