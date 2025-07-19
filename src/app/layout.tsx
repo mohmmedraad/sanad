@@ -1,9 +1,9 @@
 import "@/styles/globals.css";
 
 import Providers from "@/components/providers";
+import { Toaster } from "@/components/ui/sooner";
 import type { Metadata } from "next";
 import { Cairo } from "next/font/google";
-import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
     title: "Create T3 App",
