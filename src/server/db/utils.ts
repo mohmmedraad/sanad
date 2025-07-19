@@ -1,4 +1,4 @@
-import { pgTableCreator,timestamp } from "drizzle-orm/pg-core";
+import { pgTableCreator, timestamp } from "drizzle-orm/pg-core";
 
 export const createTable = pgTableCreator((name) => `sanad_${name}`);
 
