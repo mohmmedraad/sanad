@@ -1,9 +1,9 @@
 import { relations } from "drizzle-orm";
 import { boolean, json, text, uuid, varchar } from "drizzle-orm/pg-core";
 import { createTable, timestamps } from "../utils";
-import { usersTable } from "./users";
+import { user } from "./user";
 
-export const treesTable = createTable("tree", {
+export const tree = createTable("tree", {
     id: uuid().primaryKey().defaultRandom(),
     title: varchar().notNull(),
     draft: json().notNull().default([]),
@@ -11,16 +11,16 @@ export const treesTable = createTable("tree", {
     edges: json().notNull().default([]),
     userId: text()
         .notNull()
-        .references(() => usersTable.id, {
+        .references(() => user.id, {
             onDelete: "cascade",
         }),
     showMiniMap: boolean().default(true),
     ...timestamps,
 });
 
-export const treeRelations = relations(treesTable, ({ one }) => ({
-    user: one(usersTable, {
-        fields: [treesTable.userId],
-        references: [usersTable.id],
+export const treeRelations = relations(tree, ({ one }) => ({
+    user: one(user, {
+        fields: [tree.userId],
+        references: [user.id],
     }),
 }));

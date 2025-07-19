@@ -1,3 +1,5 @@
+"use client";
+
 import { TRPCReactProvider } from "@/trpc/react";
 import { DirectionProvider } from "@radix-ui/react-direction";
 import { ThemeProvider } from "./theme-provider";

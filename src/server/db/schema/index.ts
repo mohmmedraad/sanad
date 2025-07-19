@@ -1,5 +1,5 @@
-import * as treesSchema from "./trees";
-import * as usersSchema from "./users";
+import * as treesSchema from "./tree";
+import * as usersSchema from "./user";
 
 export default {
     ...usersSchema,
