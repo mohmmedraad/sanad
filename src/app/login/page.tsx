@@ -1,5 +1,6 @@
 import LoginCard from "@/features/auth/components/login-card";
 import { GalleryVerticalEnd } from "lucide-react";
+import { Suspense } from "react";
 
 export default function LoginPage() {
     return (
@@ -14,7 +15,9 @@ export default function LoginPage() {
                     </div>
                     سند
                 </a>
-                <LoginCard />
+                <Suspense>
+                    <LoginCard />
+                </Suspense>
             </div>
         </div>
     );
