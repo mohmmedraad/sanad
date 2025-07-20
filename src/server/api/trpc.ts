@@ -1,3 +1,6 @@
+import { APIException } from "@/lib/api-exception";
+import { getSession } from "@/lib/session";
+import { db } from "@/server/db";
 /**
  * YOU PROBABLY DON'T NEED TO EDIT THIS FILE, UNLESS:
  * 1. You want to modify request context (see Part 1).
@@ -9,10 +12,6 @@
 import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
-
-import { auth } from "@/features/auth/config";
-import { APIException } from "@/lib/api-exception";
-import { db } from "@/server/db";
 
 /**
  * 1. CONTEXT
@@ -102,7 +101,7 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
 
 export const requireAuthMiddleware = t.middleware(
     async ({ next, path, ctx }) => {
-        const session = await auth.api.getSession({ headers: ctx.headers });
+        const session = await getSession();
 
         if (!session?.user) {
             throw new APIException("UNAUTHORIZED");

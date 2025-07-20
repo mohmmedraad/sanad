@@ -1,11 +1,12 @@
 import { PlusCircleIcon } from "@/components/icons";
+import RequireAuth from "@/components/require-auth";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import CreateTreeButton from "@/features/trees/components/create-tree-button";
 import TreeList from "@/features/trees/components/tree-list";
 import { api } from "@/trpc/server";
 
-export default async function ProfileTreesPage() {
+async function ProfileTreesPage() {
     const initialTrees = await api.trees.list({});
 
     return (
@@ -26,3 +27,5 @@ export default async function ProfileTreesPage() {
         </div>
     );
 }
+
+export default RequireAuth(ProfileTreesPage);
