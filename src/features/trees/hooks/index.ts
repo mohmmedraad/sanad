@@ -21,7 +21,7 @@ export const useTreesInfiniteQuery = (
             lastPage?.nextCursor ?? undefined,
         initialPageParam: 0,
         ...options,
-        initialData: { pageParams: 0, pages: [options?.initialData] },
+        initialData: { pageParams: [undefined], pages: [options?.initialData] },
     });
 };
 
