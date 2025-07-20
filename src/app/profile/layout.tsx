@@ -1,9 +1,10 @@
+import RequireAuth from "@/components/require-auth";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import ProfileHeader from "@/features/profile/components/profile-header";
 import { ProfileSidebar } from "@/features/profile/components/profile-sidbar";
 import type { PropsWithChildren } from "react";
 
-export default function ProfileLayout({ children }: PropsWithChildren) {
+function ProfileLayout({ children }: PropsWithChildren) {
     return (
         <SidebarProvider
             style={
@@ -23,3 +24,5 @@ export default function ProfileLayout({ children }: PropsWithChildren) {
         </SidebarProvider>
     );
 }
+
+export default RequireAuth(ProfileLayout);
