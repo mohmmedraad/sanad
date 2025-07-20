@@ -10,6 +10,8 @@ import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
+import { auth } from "@/features/auth/config";
+import { APIException } from "@/lib/api-exception";
 import { db } from "@/server/db";
 
 /**
@@ -98,6 +100,24 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
     return result;
 });
 
+export const requireAuthMiddleware = t.middleware(
+    async ({ next, path, ctx }) => {
+        const session = await auth.api.getSession({ headers: ctx.headers });
+
+        if (!session?.user) {
+            throw new APIException("UNAUTHORIZED");
+        }
+
+        return next({
+            ctx: {
+                ...ctx,
+                session: session.session,
+                user: session.user,
+            },
+        });
+    },
+);
+
 /**
  * Public (unauthenticated) procedure
  *
@@ -106,3 +126,4 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
  * are logged in.
  */
 export const publicProcedure = t.procedure.use(timingMiddleware);
+export const privateProcedure = t.procedure.use(requireAuthMiddleware);
