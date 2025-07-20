@@ -2,7 +2,10 @@
 
 import { type QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchStreamLink, loggerLink } from "@trpc/client";
-import { createTRPCReact } from "@trpc/react-query";
+import {
+    createTRPCReact,
+    type inferReactQueryProcedureOptions,
+} from "@trpc/react-query";
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import { useState } from "react";
 import SuperJSON from "superjson";
@@ -37,6 +40,20 @@ export type RouterInputs = inferRouterInputs<AppRouter>;
  * @example type HelloOutput = RouterOutputs['example']['hello']
  */
 export type RouterOutputs = inferRouterOutputs<AppRouter>;
+
+/**
+ * Inference helper for query options.
+ *
+ * @example type HelloOutput = ReactQueryOptions['example']['hello']
+ */
+export type ReactQueryOptions = inferReactQueryProcedureOptions<AppRouter>;
+
+/**
+ * Inference helper for query options.
+ *
+ * @example type HelloOutput = ReactQueryOptions['example']['hello']
+ */
+export type ReactMutationOptions = inferReactQueryProcedureOptions<AppRouter>;
 
 export function TRPCReactProvider(props: { children: React.ReactNode }) {
     const queryClient = getQueryClient();
