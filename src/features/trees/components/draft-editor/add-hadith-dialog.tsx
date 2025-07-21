@@ -7,9 +7,8 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { env } from "@/env";
+import { api } from "@/trpc/react";
 import type { Hadith } from "@/types";
-import { useQuery } from "@tanstack/react-query";
 import { getEditorPlugin, useEditorRef } from "@udecode/plate/react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { LoaderCircleIcon } from "lucide-react";
@@ -25,11 +24,19 @@ export default function AddHadithDialog(props: AddHadithDialogProps) {
     });
     const [search, setSearch] = useState("");
     const debouncedSearch = useDebounce(search, 700);
-    const { data, isError, isFetching } = useQuery({
-        queryKey: ["hadith-search", debouncedSearch],
-        queryFn: async () => getHadith(search),
-        enabled: !!debouncedSearch,
-    });
+
+    const {
+        data: hadiths,
+        isError,
+        isFetching,
+    } = api.hadith.get.useQuery(
+        {
+            search,
+        },
+        {
+            enabled: !!debouncedSearch,
+        },
+    );
     const [open, setOpen] = useState(false);
 
     function onHadithChange(hadith: Hadith) {
@@ -81,7 +88,7 @@ export default function AddHadithDialog(props: AddHadithDialogProps) {
                         <ul className="divide-y divide-border">
                             {!isFetching &&
                                 !isError &&
-                                data?.map((hadith) => (
+                                hadiths?.hadith?.map((hadith) => (
                                     <li key={hadith?.hadith}>
                                         <button
                                             type="button"
@@ -140,22 +147,4 @@ export default function AddHadithDialog(props: AddHadithDialogProps) {
             </DialogContent>
         </Dialog>
     );
-}
-
-async function getHadith(search: string) {
-    const url = `${env.NEXT_PUBLIC_WEBSITE_URL}/api/hadith?search=${search}`;
-
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-
-        if (data.error?.status === "fail") {
-            throw new Error("error");
-        }
-
-        return data.data as unknown as Hadith[];
-    } catch (error) {
-        console.log("error: ", error);
-        throw error;
-    }
 }

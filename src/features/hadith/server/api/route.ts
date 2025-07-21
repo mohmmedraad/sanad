@@ -10,7 +10,7 @@ const hadithRoute = createTRPCRouter({
         .input(hadithSearchParamsSchema)
         .query(async ({ input }) => {
             const hadith = await hadithService.getHadith(input);
-            return { success: true, data: hadith };
+            return { success: true, hadith: hadith.data };
         }),
 });
 
