@@ -2,7 +2,7 @@ import type { NarratorGrade } from "@/types";
 import type { EntityTable } from "dexie";
 
 export type NarratorsTable = {
-    id: string;
+    id: number;
     name: string;
     grade: NarratorGrade;
     birth: string;

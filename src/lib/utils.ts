@@ -10,3 +10,22 @@ export function cn(...inputs: ClassValue[]) {
 export const authClient = createAuthClient();
 
 export type inferSchemaType<T extends z.ZodTypeAny> = z.infer<T>;
+
+export type OmitFunctions<T> = {
+    // biome-ignore lint/complexity/noBannedTypes: <explanation>
+    [K in keyof T as T[K] extends Function ? never : K]: T[K];
+};
+
+export function getRandomId() {
+    return Math.random().toString();
+}
+
+export function downloadImage(dataUrl: string, name = "image") {
+    const a = document.createElement("a");
+
+    a.setAttribute("download", name);
+    a.setAttribute("href", dataUrl);
+    a.click();
+
+    a.remove();
+}

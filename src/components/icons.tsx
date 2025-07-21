@@ -1,10 +1,15 @@
 import {
+    ChevronDown,
+    ChevronUp,
     CircleAlert,
     Ellipsis,
     HelpCircle,
+    LoaderCircle,
+    Mic,
     Monitor,
     Moon,
     PlusCircle,
+    Search,
     Settings,
     Sun,
     Trash2,
@@ -28,3 +33,11 @@ export const EllipsisIcon = (props: IconProps) => <Ellipsis {...props} />;
 export const Trash2Icon = (props: IconProps) => <Trash2 {...props} />;
 export const TreePineIcon = (props: IconProps) => <TreePine {...props} />;
 export const PlusCircleIcon = (props: IconProps) => <PlusCircle {...props} />;
+export const ChevronDownIcon = (props: IconProps) => <ChevronDown {...props} />;
+export const ChevronUpIcon = (props: IconProps) => <ChevronUp {...props} />;
+
+export const LoaderCircleIcon = (props: IconProps) => (
+    <LoaderCircle {...props} />
+);
+export const MicIcon = (props: IconProps) => <Mic {...props} />;
+export const SearchIcon = (props: IconProps) => <Search {...props} />;
