@@ -1,3 +1,4 @@
+import narratorsRoute from "@/features/narrators/server/api/route";
 import treesRoute from "@/features/trees/server/api/route";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 
@@ -8,6 +9,7 @@ import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
     trees: treesRoute,
+    narrators: narratorsRoute,
 });
 
 // export type definition of API
