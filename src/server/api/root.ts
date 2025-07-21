@@ -1,3 +1,4 @@
+import hadithRoute from "@/features/hadith/server/api/route";
 import narratorsRoute from "@/features/narrators/server/api/route";
 import treesRoute from "@/features/trees/server/api/route";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
@@ -9,6 +10,7 @@ import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
     trees: treesRoute,
+    hadith: hadithRoute,
     narrators: narratorsRoute,
 });
 
