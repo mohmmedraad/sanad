@@ -29,7 +29,19 @@ export type WrokerEvent<T extends object> = {
     data?: T;
     error?: unknown;
 };
+
+export type Layout = "both" | "draft" | "tree-editor";
+
 export type NarratorsSyncWorkerReturn = WrokerEvent<{
     version: string;
     narrators: Narrator[];
 }>;
+
+export type Hadith = {
+    hadith: string;
+    rawi: string;
+    mohdith: string;
+    book: string;
+    numberOrPage: string;
+    grade: string;
+};

@@ -3,8 +3,10 @@
 import type { AppRouter } from "@/server/api/root";
 import { type QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
+    TRPCClientError,
     createTRPCProxyClient,
     httpBatchStreamLink,
+    isTRPCClientError,
     loggerLink,
 } from "@trpc/client";
 import {
@@ -49,6 +51,9 @@ const trpcOptions = {
 
 export const api = createTRPCReact<AppRouter>();
 export const apiFetch = createTRPCProxyClient<AppRouter>(trpcOptions);
+
+export const APIClientError = TRPCClientError<AppRouter>;
+export const isAPIClientError = isTRPCClientError<AppRouter>;
 
 /**
  * Inference helper for inputs.
