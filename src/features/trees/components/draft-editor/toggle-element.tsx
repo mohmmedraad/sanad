@@ -7,8 +7,8 @@ import {
     useToggleButtonState,
 } from "@udecode/plate-toggle/react";
 import { PlateElement } from "@udecode/plate/react";
-import { ChevronRight } from "lucide-react";
 
+import { ChevronRightIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 
 export function ToggleElement(props: PlateElementProps) {
@@ -25,7 +25,7 @@ export function ToggleElement(props: PlateElementProps) {
                 contentEditable={false}
                 {...buttonProps}
             >
-                <ChevronRight
+                <ChevronRightIcon
                     className={
                         open
                             ? "rotate-90 transition-transform duration-75"

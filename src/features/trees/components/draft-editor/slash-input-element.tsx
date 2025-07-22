@@ -4,6 +4,19 @@ import type * as React from "react";
 
 import type { TSlashInputElement } from "@udecode/plate-slash-command";
 
+import {
+    CalendarIcon,
+    ChevronRightIcon,
+    Heading1Icon,
+    Heading2Icon,
+    Heading3Icon,
+    ListIcon,
+    ListOrderedIcon,
+    PilcrowIcon,
+    QuoteIcon,
+    SquareIcon,
+    TableIcon,
+} from "@/components/icons";
 import { BlockquotePlugin } from "@udecode/plate-block-quote/react";
 import { DatePlugin } from "@udecode/plate-date/react";
 import { HEADING_KEYS } from "@udecode/plate-heading";
@@ -16,19 +29,6 @@ import {
     type PlateElementProps,
 } from "@udecode/plate/react";
 import { PlateElement } from "@udecode/plate/react";
-import {
-    CalendarIcon,
-    ChevronRightIcon,
-    Heading1Icon,
-    Heading2Icon,
-    Heading3Icon,
-    ListIcon,
-    ListOrdered,
-    PilcrowIcon,
-    Quote,
-    Square,
-    Table,
-} from "lucide-react";
 
 import {
     InlineCombobox,
@@ -97,13 +97,13 @@ const groups: Group[] = [
                 value: ListStyleType.Disc,
             },
             {
-                icon: <ListOrdered />,
+                icon: <ListOrderedIcon />,
                 keywords: ["مرتبة", "ol", "1"],
                 label: "قائمة مرقمة",
                 value: ListStyleType.Decimal,
             },
             {
-                icon: <Square />,
+                icon: <SquareIcon />,
                 keywords: ["قائمة تحقق", "مهمة", "خانة اختيار", "[]"],
                 label: "قائمة المهام",
                 value: INDENT_LIST_KEYS.todo,
@@ -115,12 +115,12 @@ const groups: Group[] = [
                 value: TogglePlugin.key,
             },
             {
-                icon: <Table />,
+                icon: <TableIcon />,
                 label: "جدول",
                 value: TablePlugin.key,
             },
             {
-                icon: <Quote />,
+                icon: <QuoteIcon />,
                 keywords: ["اقتباس", "كتلة اقتباس", "اقتباس", ">"],
                 label: "اقتباس",
                 value: BlockquotePlugin.key,

@@ -1,12 +1,12 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import type * as React from "react";
 
+import { ArrowDownLeftIcon, ArrowDownRightIcon } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import {
     Handle,
     NodeResizeControl as ReactflowNodeResizeControl,
 } from "@xyflow/react";
-import { ArrowDownLeft, ArrowDownRight } from "lucide-react";
 
 function Node({ className, ...porps }: React.ComponentProps<"div">) {
     return (
@@ -95,7 +95,7 @@ function NodeResizeControl({
                 {...props}
             >
                 {props.position === "bottom-left" && (
-                    <ArrowDownLeft
+                    <ArrowDownLeftIcon
                         className={cn(
                             nodeResizeControlVariants({
                                 variant: props.position,
@@ -106,7 +106,7 @@ function NodeResizeControl({
                 )}
 
                 {props.position === "bottom-right" && (
-                    <ArrowDownRight
+                    <ArrowDownRightIcon
                         className={cn(
                             nodeResizeControlVariants({
                                 variant: props.position,

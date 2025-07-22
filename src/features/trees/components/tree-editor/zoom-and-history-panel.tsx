@@ -1,3 +1,4 @@
+import { MinusIcon, PlusIcon, Redo2Icon, Undo2Icon } from "@/components/icons";
 import ToolTipButton from "@/components/tooltip-button";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import {
@@ -5,7 +6,6 @@ import {
     useTreeInteractionStore,
 } from "@/store/tree-editor-store";
 import { Panel, useReactFlow, useViewport } from "@xyflow/react";
-import { Minus, Plus, Redo2, Undo2 } from "lucide-react";
 import { useCallback, useEffect } from "react";
 
 export default function ZoomAndHistoryPanel() {
@@ -75,7 +75,7 @@ function HistoryButtons() {
                 className="hover:bg-background/70"
                 tooltip="تراجع"
             >
-                <Undo2 />
+                <Undo2Icon />
             </ToolTipButton>
             <ToolTipButton
                 onClick={handleRedo}
@@ -85,7 +85,7 @@ function HistoryButtons() {
                 className="hover:bg-background/70"
                 tooltip="أعادة تنفيذ"
             >
-                <Redo2 />
+                <Redo2Icon />
             </ToolTipButton>
         </div>
     );
@@ -132,7 +132,7 @@ function ZoomControll() {
                 className="hover:bg-background/70"
                 tooltip="(Ctrl + -) تصغير"
             >
-                <Minus />
+                <MinusIcon />
             </ToolTipButton>
             <ToolTipButton
                 variant="ghost"
@@ -150,7 +150,7 @@ function ZoomControll() {
                 className="hover:bg-background/70"
                 tooltip="(Ctrl + +) تكبير"
             >
-                <Plus />
+                <PlusIcon />
             </ToolTipButton>
         </div>
     );

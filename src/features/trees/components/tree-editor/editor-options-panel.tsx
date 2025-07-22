@@ -1,3 +1,10 @@
+import {
+    CheckIcon,
+    CopyIcon,
+    DownloadIcon,
+    LoaderCircleIcon,
+    MenuIcon,
+} from "@/components/icons";
 import { ModeToggleGroup } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,13 +35,6 @@ import {
     useReactFlow,
 } from "@xyflow/react";
 import { toPng } from "html-to-image";
-import {
-    Check,
-    Copy,
-    Download,
-    LoaderCircleIcon,
-    MenuIcon,
-} from "lucide-react";
 import { useTheme } from "next-themes";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -360,7 +360,7 @@ function ExportTreeDialogContent() {
                         disabled={status === "downloading"}
                         className="w-full sm:w-[initial]"
                     >
-                        <Download />
+                        <DownloadIcon />
                         تنزيل كـ PNG
                     </Button>
                     <Button
@@ -370,9 +370,9 @@ function ExportTreeDialogContent() {
                         className="w-full sm:w-[initial]"
                     >
                         {status === "clipboard-saving" ? (
-                            <Check className="text-green-500" />
+                            <CheckIcon className="text-green-500" />
                         ) : (
-                            <Copy />
+                            <CopyIcon />
                         )}
                         نسخ الى الحافظة
                     </Button>
@@ -391,7 +391,8 @@ function ExportTreeDialogContent() {
                     <div className="flex size-full items-center justify-center">
                         <LoaderCircleIcon
                             className="animate-spin"
-                            size={16}
+                            width={16}
+                            height={16}
                             role="status"
                             aria-label="جار التحميل..."
                         />

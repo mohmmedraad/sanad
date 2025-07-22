@@ -2,11 +2,11 @@
 
 import type * as React from "react";
 
+import { ListTodoIcon } from "@/components/icons";
 import {
     useIndentTodoToolBarButton,
     useIndentTodoToolBarButtonState,
 } from "@udecode/plate-indent-list/react";
-import { ListTodoIcon } from "lucide-react";
 
 import { ToolbarButton } from "./toolbar";
 

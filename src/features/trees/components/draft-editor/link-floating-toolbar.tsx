@@ -24,8 +24,13 @@ import {
     usePluginOption,
 } from "@udecode/plate/react";
 import { cva } from "class-variance-authority";
-import { ExternalLink, Link, Text, Unlink } from "lucide-react";
 
+import {
+    ExternalLinkIcon,
+    LinkIcon,
+    TextIcon,
+    UnlinkIcon,
+} from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
@@ -101,7 +106,7 @@ export function LinkFloatingToolbar({
         <div className="flex w-[200px] flex-col md:w-[330px]" {...inputProps}>
             <div className="flex items-center">
                 <div className="flex items-center pr-1 pl-2 text-muted-foreground">
-                    <Link className="size-4" />
+                    <LinkIcon className="size-4" />
                 </div>
 
                 <FloatingLinkUrlInput
@@ -113,7 +118,7 @@ export function LinkFloatingToolbar({
             <Separator className="my-1" />
             <div className="flex items-center">
                 <div className="flex items-center pr-1 pl-2 text-muted-foreground">
-                    <Text className="size-4" />
+                    <TextIcon className="size-4" />
                 </div>
                 <input
                     className={inputVariants()}
@@ -151,7 +156,7 @@ export function LinkFloatingToolbar({
                 type="button"
                 {...unlinkButtonProps}
             >
-                <Unlink width={18} />
+                <UnlinkIcon width={18} />
             </button>
         </div>
     );
@@ -203,7 +208,7 @@ function LinkOpenButton() {
             aria-label="فتح الرابط في علامة تبويب جديدة"
             target="_blank"
         >
-            <ExternalLink width={18} />
+            <ExternalLinkIcon width={18} />
         </a>
     );
 }

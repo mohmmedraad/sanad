@@ -2,7 +2,7 @@ import type * as React from "react";
 
 import type { SlateRenderElementProps } from "@udecode/plate";
 
-import { CheckIcon } from "lucide-react";
+import { CheckIcon } from "@/components/icons";
 
 import { cn } from "@/lib/utils";
 

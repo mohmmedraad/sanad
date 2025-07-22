@@ -4,14 +4,14 @@ import * as React from "react";
 
 import type { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 
-import { type Alignment, setAlign } from "@udecode/plate-alignment";
-import { useEditorRef, useSelectionFragmentProp } from "@udecode/plate/react";
 import {
     AlignCenterIcon,
     AlignJustifyIcon,
     AlignLeftIcon,
     AlignRightIcon,
-} from "lucide-react";
+} from "@/components/icons";
+import { type Alignment, setAlign } from "@udecode/plate-alignment";
+import { useEditorRef, useSelectionFragmentProp } from "@udecode/plate/react";
 
 import {
     DropdownMenu,

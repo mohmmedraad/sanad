@@ -2,8 +2,8 @@
 
 import * as React from "react";
 
+import { MoreHorizontalIcon } from "@/components/icons";
 import type { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
-import { MoreHorizontalIcon } from "lucide-react";
 
 import {
     DropdownMenu,

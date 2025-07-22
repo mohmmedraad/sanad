@@ -1,6 +1,6 @@
-import { CheckIcon, ChevronDownIcon, CircleHelp } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
+import { CheckIcon, ChevronDownIcon, CircleHelpIcon } from "@/components/icons";
 import NarratorTooltip from "@/components/narrator-tooltip";
 import SearchInput from "@/components/search-input";
 import { Button } from "@/components/ui/button";
@@ -101,13 +101,14 @@ export default function NarratorSelect({
                                     narrator={selectedNarrator}
                                     className="mr-auto shrink-0"
                                 >
-                                    <CircleHelp className="size-4 shrink-0 text-muted-foreground/80" />
+                                    <CircleHelpIcon className="size-4 shrink-0 text-muted-foreground/80" />
                                 </NarratorTooltip>
                             </>
                         )}
                     </span>
                     <ChevronDownIcon
-                        size={16}
+                        width={16}
+                        height={16}
                         className="shrink-0 text-muted-foreground/80"
                         aria-hidden="true"
                     />
@@ -149,10 +150,10 @@ export default function NarratorSelect({
                                             narrator={narrator}
                                             className="mr-auto shrink-0"
                                         >
-                                            <CircleHelp className="size-4 shrink-0 text-gray-500" />
+                                            <CircleHelpIcon className="size-4 shrink-0 text-gray-500" />
                                         </NarratorTooltip>
                                         {+value === narrator.id && (
-                                            <CheckIcon size={16} />
+                                            <CheckIcon width={16} height={16} />
                                         )}
                                     </button>
                                 ))}

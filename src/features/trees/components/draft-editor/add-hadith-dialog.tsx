@@ -1,3 +1,4 @@
+import { LoaderCircleIcon } from "@/components/icons";
 import SearchInput from "@/components/search-input";
 import {
     Dialog,
@@ -11,7 +12,6 @@ import { api } from "@/trpc/react";
 import type { Hadith } from "@/types";
 import { getEditorPlugin, useEditorRef } from "@udecode/plate/react";
 import { useDebounce } from "@uidotdev/usehooks";
-import { LoaderCircleIcon } from "lucide-react";
 import { useState } from "react";
 import { HADITH_KEY } from "./plugins/hadith-plugin";
 
@@ -73,7 +73,8 @@ export default function AddHadithDialog(props: AddHadithDialogProps) {
                             <div className="mt-4 flex size-full items-center justify-center">
                                 <LoaderCircleIcon
                                     className="animate-spin"
-                                    size={16}
+                                    width={16}
+                                    height={16}
                                     role="status"
                                     aria-label="جار التحميل..."
                                 />

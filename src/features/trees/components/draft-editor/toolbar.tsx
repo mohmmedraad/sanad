@@ -5,8 +5,8 @@ import * as React from "react";
 import * as ToolbarPrimitive from "@radix-ui/react-toolbar";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { type VariantProps, cva } from "class-variance-authority";
-import { ChevronDown } from "lucide-react";
 
+import { ChevronDownIcon } from "@/components/icons";
 import {
     DropdownMenuLabel,
     DropdownMenuRadioGroup,
@@ -154,7 +154,7 @@ export const ToolbarButton = withTooltip(function ToolbarButton({
                 {isDropdown ? (
                     <>
                         <div>
-                            <ChevronDown
+                            <ChevronDownIcon
                                 className="size-3.5 text-muted-foreground"
                                 data-icon
                             />
@@ -254,7 +254,10 @@ export function ToolbarSplitButtonSecondary({
             role="button"
             {...props}
         >
-            <ChevronDown className="size-3.5 text-muted-foreground" data-icon />
+            <ChevronDownIcon
+                className="size-3.5 text-muted-foreground"
+                data-icon
+            />
         </span>
     );
 }

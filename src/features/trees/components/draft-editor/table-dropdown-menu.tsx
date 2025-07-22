@@ -4,20 +4,20 @@ import * as React from "react";
 
 import type { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 
+import {
+    ArrowDownIcon,
+    ArrowLeftIcon,
+    ArrowRightIcon,
+    ArrowUpIcon,
+    CombineIcon,
+    Grid3X3Icon,
+    TableIcon,
+    Trash2Icon,
+    UngroupIcon,
+    XIcon,
+} from "@/components/icons";
 import { TablePlugin, useTableMergeState } from "@udecode/plate-table/react";
 import { useEditorPlugin, useEditorSelector } from "@udecode/plate/react";
-import {
-    ArrowDown,
-    ArrowLeft,
-    ArrowRight,
-    ArrowUp,
-    Combine,
-    Grid3x3Icon,
-    Table,
-    Trash2Icon,
-    Ungroup,
-    XIcon,
-} from "lucide-react";
 
 import {
     DropdownMenu,
@@ -52,7 +52,7 @@ export function TableDropdownMenu(props: DropdownMenuProps) {
         >
             <DropdownMenuTrigger asChild>
                 <ToolbarButton pressed={open} tooltip="جدول" isDropdown>
-                    <Table />
+                    <TableIcon />
                 </ToolbarButton>
             </DropdownMenuTrigger>
 
@@ -63,7 +63,7 @@ export function TableDropdownMenu(props: DropdownMenuProps) {
                 <DropdownMenuGroup>
                     <DropdownMenuSub>
                         <DropdownMenuSubTrigger className="gap-2 data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
-                            <Grid3x3Icon className="size-4" />
+                            <Grid3X3Icon className="size-4" />
                             <span>جدول</span>
                         </DropdownMenuSubTrigger>
                         <DropdownMenuSubContent className="m-0 p-0">
@@ -88,7 +88,7 @@ export function TableDropdownMenu(props: DropdownMenuProps) {
                                     editor.tf.focus();
                                 }}
                             >
-                                <Combine />
+                                <CombineIcon />
                                 دمج الخلايا
                             </DropdownMenuItem>
                             <DropdownMenuItem
@@ -99,7 +99,7 @@ export function TableDropdownMenu(props: DropdownMenuProps) {
                                     editor.tf.focus();
                                 }}
                             >
-                                <Ungroup />
+                                <UngroupIcon />
                                 تقسيم الخلية
                             </DropdownMenuItem>
                         </DropdownMenuSubContent>
@@ -122,7 +122,7 @@ export function TableDropdownMenu(props: DropdownMenuProps) {
                                     editor.tf.focus();
                                 }}
                             >
-                                <ArrowUp />
+                                <ArrowUpIcon />
                                 إدراج صف قبل
                             </DropdownMenuItem>
                             <DropdownMenuItem
@@ -133,7 +133,7 @@ export function TableDropdownMenu(props: DropdownMenuProps) {
                                     editor.tf.focus();
                                 }}
                             >
-                                <ArrowDown />
+                                <ArrowDownIcon />
                                 إدراج صف بعد
                             </DropdownMenuItem>
                             <DropdownMenuItem
@@ -167,7 +167,7 @@ export function TableDropdownMenu(props: DropdownMenuProps) {
                                     editor.tf.focus();
                                 }}
                             >
-                                <ArrowLeft />
+                                <ArrowLeftIcon />
                                 إدراج عمود قبل
                             </DropdownMenuItem>
                             <DropdownMenuItem
@@ -178,7 +178,7 @@ export function TableDropdownMenu(props: DropdownMenuProps) {
                                     editor.tf.focus();
                                 }}
                             >
-                                <ArrowRight />
+                                <ArrowRightIcon />
                                 إدراج عمود بعد
                             </DropdownMenuItem>
                             <DropdownMenuItem

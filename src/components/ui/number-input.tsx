@@ -1,7 +1,7 @@
 "use client";
 
-import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { Button, Group, Input, NumberField } from "react-aria-components";
+import { ChevronDownIcon, ChevronUpIcon } from "../icons";
 
 export default function NumberInput(
     props: React.ComponentProps<typeof NumberField>,
@@ -16,13 +16,21 @@ export default function NumberInput(
                             slot="increment"
                             className="-me-px flex h-1/2 w-6 flex-1 items-center justify-center border border-input bg-background text-muted-foreground/80 text-sm transition-[color,box-shadow] hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                            <ChevronUpIcon size={12} aria-hidden="true" />
+                            <ChevronUpIcon
+                                width={12}
+                                height={12}
+                                aria-hidden="true"
+                            />
                         </Button>
                         <Button
                             slot="decrement"
                             className="-me-px -mt-px flex h-1/2 w-6 flex-1 items-center justify-center border border-input bg-background text-muted-foreground/80 text-sm transition-[color,box-shadow] hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                            <ChevronDownIcon size={12} aria-hidden="true" />
+                            <ChevronDownIcon
+                                width={12}
+                                height={12}
+                                aria-hidden="true"
+                            />
                         </Button>
                     </div>
                 </Group>

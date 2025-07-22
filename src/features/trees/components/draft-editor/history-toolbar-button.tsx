@@ -2,8 +2,8 @@
 
 import type * as React from "react";
 
+import { Redo2Icon, Undo2Icon } from "@/components/icons";
 import { useEditorRef, useEditorSelector } from "@udecode/plate/react";
-import { Redo2Icon, Undo2Icon } from "lucide-react";
 
 import { ToolbarButton } from "./toolbar";
 

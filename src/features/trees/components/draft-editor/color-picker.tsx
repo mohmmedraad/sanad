@@ -2,12 +2,11 @@
 
 import * as React from "react";
 
-import { EraserIcon } from "lucide-react";
-
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { ToolbarMenuGroup } from "./toolbar";
 
+import { EraserIcon } from "@/components/icons";
 import {
     ColorDropdownMenuItems,
     type TColor,

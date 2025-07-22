@@ -1,8 +1,8 @@
 "use client";
 
-import type { LucideProps } from "lucide-react";
+import type { IconProps } from "@/components/icons";
 
-export const BorderAll = (props: LucideProps) => (
+export const BorderAll = (props: IconProps) => (
     // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
     <svg
         fill="none"
@@ -30,7 +30,7 @@ export const BorderAll = (props: LucideProps) => (
     </svg>
 );
 
-export const BorderBottom = (props: LucideProps) => (
+export const BorderBottom = (props: IconProps) => (
     // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
     <svg
         fill="none"
@@ -75,7 +75,7 @@ export const BorderBottom = (props: LucideProps) => (
     </svg>
 );
 
-export const BorderLeft = (props: LucideProps) => (
+export const BorderLeft = (props: IconProps) => (
     // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
     <svg
         fill="none"
@@ -328,7 +328,7 @@ export const BorderLeft = (props: LucideProps) => (
     </svg>
 );
 
-export const BorderNone = (props: LucideProps) => (
+export const BorderNone = (props: IconProps) => (
     // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
     <svg
         fill="none"
@@ -605,7 +605,7 @@ export const BorderNone = (props: LucideProps) => (
     </svg>
 );
 
-export const BorderRight = (props: LucideProps) => (
+export const BorderRight = (props: IconProps) => (
     // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
     <svg
         fill="none"
@@ -806,7 +806,7 @@ export const BorderRight = (props: LucideProps) => (
     </svg>
 );
 
-export const BorderTop = (props: LucideProps) => (
+export const BorderTop = (props: IconProps) => (
     // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
     <svg
         fill="none"

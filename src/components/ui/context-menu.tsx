@@ -1,8 +1,8 @@
 "use client";
 
 import * as ContextMenuPrimitive from "@radix-ui/react-context-menu";
-import { CheckIcon, ChevronLeftIcon, CircleIcon } from "lucide-react";
 import type * as React from "react";
+import { CheckIcon, ChevronLeftIcon, CircleIcon } from "../icons";
 
 import { cn } from "@/lib/utils";
 

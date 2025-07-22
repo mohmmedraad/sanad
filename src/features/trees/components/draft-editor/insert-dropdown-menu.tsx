@@ -4,19 +4,6 @@ import * as React from "react";
 
 import type { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 
-import { BlockquotePlugin } from "@udecode/plate-block-quote/react";
-import { DatePlugin } from "@udecode/plate-date/react";
-import { HEADING_KEYS } from "@udecode/plate-heading";
-import { HorizontalRulePlugin } from "@udecode/plate-horizontal-rule/react";
-import { INDENT_LIST_KEYS, ListStyleType } from "@udecode/plate-indent-list";
-import { LinkPlugin } from "@udecode/plate-link/react";
-import { TablePlugin } from "@udecode/plate-table/react";
-import { TogglePlugin } from "@udecode/plate-toggle/react";
-import {
-    ParagraphPlugin,
-    type PlateEditor,
-    useEditorRef,
-} from "@udecode/plate/react";
 import {
     CalendarIcon,
     ChevronRightIcon,
@@ -31,10 +18,23 @@ import {
     PilcrowIcon,
     PlusIcon,
     QuoteIcon,
-    Speech,
+    SpeechIcon,
     SquareIcon,
     TableIcon,
-} from "lucide-react";
+} from "@/components/icons";
+import { BlockquotePlugin } from "@udecode/plate-block-quote/react";
+import { DatePlugin } from "@udecode/plate-date/react";
+import { HEADING_KEYS } from "@udecode/plate-heading";
+import { HorizontalRulePlugin } from "@udecode/plate-horizontal-rule/react";
+import { INDENT_LIST_KEYS, ListStyleType } from "@udecode/plate-indent-list";
+import { LinkPlugin } from "@udecode/plate-link/react";
+import { TablePlugin } from "@udecode/plate-table/react";
+import { TogglePlugin } from "@udecode/plate-toggle/react";
+import {
+    ParagraphPlugin,
+    type PlateEditor,
+    useEditorRef,
+} from "@udecode/plate/react";
 
 import {
     DropdownMenu,
@@ -190,7 +190,7 @@ export function InsertDropdownMenu(props: DropdownMenuProps) {
                             className="min-w-[180px]"
                             onSelect={(e) => e.preventDefault()}
                         >
-                            <Speech />
+                            <SpeechIcon />
                             حديث
                         </DropdownMenuItem>
                     </AddHadithDialog>

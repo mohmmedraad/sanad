@@ -5,16 +5,6 @@ import * as React from "react";
 import type { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import type { TElement } from "@udecode/plate";
 
-import { DropdownMenuItemIndicator } from "@radix-ui/react-dropdown-menu";
-import { BlockquotePlugin } from "@udecode/plate-block-quote/react";
-import { HEADING_KEYS } from "@udecode/plate-heading";
-import { INDENT_LIST_KEYS, ListStyleType } from "@udecode/plate-indent-list";
-import { TogglePlugin } from "@udecode/plate-toggle/react";
-import {
-    ParagraphPlugin,
-    useEditorRef,
-    useSelectionFragmentProp,
-} from "@udecode/plate/react";
 import {
     CheckIcon,
     ChevronRightIcon,
@@ -27,7 +17,17 @@ import {
     PilcrowIcon,
     QuoteIcon,
     SquareIcon,
-} from "lucide-react";
+} from "@/components/icons";
+import { DropdownMenuItemIndicator } from "@radix-ui/react-dropdown-menu";
+import { BlockquotePlugin } from "@udecode/plate-block-quote/react";
+import { HEADING_KEYS } from "@udecode/plate-heading";
+import { INDENT_LIST_KEYS, ListStyleType } from "@udecode/plate-indent-list";
+import { TogglePlugin } from "@udecode/plate-toggle/react";
+import {
+    ParagraphPlugin,
+    useEditorRef,
+    useSelectionFragmentProp,
+} from "@udecode/plate/react";
 
 import {
     DropdownMenu,

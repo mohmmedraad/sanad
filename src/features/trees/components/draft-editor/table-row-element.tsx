@@ -17,8 +17,8 @@ import {
     useReadOnly,
     useSelected,
 } from "@udecode/plate/react";
-import { GripVertical } from "lucide-react";
 
+import { GripVerticalIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -91,7 +91,7 @@ function RowDragHandle({ dragRef }: { dragRef: React.Ref<Element> }) {
                 editor.tf.select(element);
             }}
         >
-            <GripVertical className="text-muted-foreground" />
+            <GripVerticalIcon className="text-muted-foreground" />
         </Button>
     );
 }

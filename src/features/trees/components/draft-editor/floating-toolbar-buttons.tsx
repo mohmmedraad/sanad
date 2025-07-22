@@ -1,19 +1,19 @@
 "use client";
 
 import {
+    BoldIcon,
+    HighlighterIcon,
+    ItalicIcon,
+    StrikethroughIcon,
+    UnderlineIcon,
+} from "@/components/icons";
+import {
     BoldPlugin,
     ItalicPlugin,
     StrikethroughPlugin,
     UnderlinePlugin,
 } from "@udecode/plate-basic-marks/react";
 import { useEditorReadOnly } from "@udecode/plate/react";
-import {
-    BoldIcon,
-    HighlighterIcon,
-    ItalicIcon,
-    StrikethroughIcon,
-    UnderlineIcon,
-} from "lucide-react";
 
 import { HighlightPlugin } from "@udecode/plate-highlight/react";
 import { LinkToolbarButton } from "./link-toolbar-button";

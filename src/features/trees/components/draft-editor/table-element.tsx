@@ -5,6 +5,19 @@ import * as React from "react";
 import type * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import type { TTableElement } from "@udecode/plate-table";
 
+import {
+    ArrowDownIcon,
+    ArrowLeftIcon,
+    ArrowRightIcon,
+    ArrowUpIcon,
+    CombineIcon,
+    EraserIcon,
+    Grid2X2Icon,
+    PaintBucketIcon,
+    SquareSplitHorizontalIcon,
+    Trash2Icon,
+    XIcon,
+} from "@/components/icons";
 // import { PopoverAnchor } from "@radix-ui/react-popover";
 import { setCellBackground } from "@udecode/plate-table";
 import {
@@ -27,19 +40,6 @@ import {
     useSelected,
     withHOC,
 } from "@udecode/plate/react";
-import {
-    ArrowDown,
-    ArrowLeft,
-    ArrowRight,
-    ArrowUp,
-    CombineIcon,
-    EraserIcon,
-    Grid2X2Icon,
-    PaintBucketIcon,
-    SquareSplitHorizontalIcon,
-    Trash2Icon,
-    XIcon,
-} from "lucide-react";
 
 import {
     DropdownMenu,
@@ -211,7 +211,7 @@ export function TableFloatingToolbar({
                                     onMouseDown={(e) => e.preventDefault()}
                                     tooltip="إدراج صف قبل"
                                 >
-                                    <ArrowUp />
+                                    <ArrowUpIcon />
                                 </ToolbarButton>
                                 <ToolbarButton
                                     onClick={() => {
@@ -220,7 +220,7 @@ export function TableFloatingToolbar({
                                     onMouseDown={(e) => e.preventDefault()}
                                     tooltip="إدراج صف بعد"
                                 >
-                                    <ArrowDown />
+                                    <ArrowDownIcon />
                                 </ToolbarButton>
                                 <ToolbarButton
                                     onClick={() => {
@@ -242,7 +242,7 @@ export function TableFloatingToolbar({
                                     onMouseDown={(e) => e.preventDefault()}
                                     tooltip="إدراج عمود قبل"
                                 >
-                                    <ArrowLeft />
+                                    <ArrowLeftIcon />
                                 </ToolbarButton>
                                 <ToolbarButton
                                     onClick={() => {
@@ -251,7 +251,7 @@ export function TableFloatingToolbar({
                                     onMouseDown={(e) => e.preventDefault()}
                                     tooltip="إدراج عمود بعد"
                                 >
-                                    <ArrowRight />
+                                    <ArrowRightIcon />
                                 </ToolbarButton>
                                 <ToolbarButton
                                     onClick={() => {

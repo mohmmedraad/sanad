@@ -2,13 +2,13 @@
 
 import * as React from "react";
 
+import { ListIcon, ListOrderedIcon } from "@/components/icons";
 import {
     ListStyleType,
     someIndentList,
     toggleIndentList,
 } from "@udecode/plate-indent-list";
 import { useEditorRef, useEditorSelector } from "@udecode/plate/react";
-import { List, ListOrdered } from "lucide-react";
 
 import {
     DropdownMenu,
@@ -106,7 +106,7 @@ export function NumberedIndentListToolbarButton() {
                 }
                 data-state={pressed ? "on" : "off"}
             >
-                <ListOrdered className="size-4" />
+                <ListOrderedIcon className="size-4" />
             </ToolbarSplitButtonPrimary>
         </ToolbarSplitButton>
     );
@@ -183,7 +183,7 @@ export function BulletedIndentListToolbarButton() {
                 }}
                 data-state={pressed ? "on" : "off"}
             >
-                <List className="size-4" />
+                <ListIcon className="size-4" />
             </ToolbarSplitButtonPrimary>
         </ToolbarSplitButton>
     );

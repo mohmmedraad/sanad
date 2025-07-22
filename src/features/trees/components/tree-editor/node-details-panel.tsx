@@ -1,10 +1,11 @@
+import { Trash2Icon, XIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
     useTreeEditorStore,
     useTreeInteractionStore,
 } from "@/store/tree-editor-store";
 import { Panel, useKeyPress } from "@xyflow/react";
-import { Trash2, X } from "lucide-react";
+
 import { NarratorNodeDetails } from "./nodes/narrator-node";
 import { SpeakerNodeDetails } from "./nodes/speaker-node";
 
@@ -50,7 +51,7 @@ export default function NodeDetailsPanel() {
                         size={"icon"}
                         onClick={() => setActiveNode(null)}
                     >
-                        <X />
+                        <XIcon />
                     </Button>
                     <Button
                         variant={"destructive"}
@@ -65,7 +66,7 @@ export default function NodeDetailsPanel() {
                             setActiveNode(null);
                         }}
                     >
-                        <Trash2 />
+                        <Trash2Icon />
                     </Button>
                 </div>
                 {/* @ts-ignore */}

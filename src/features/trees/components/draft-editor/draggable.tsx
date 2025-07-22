@@ -2,6 +2,7 @@
 
 import * as React from "react";
 
+import { GripVerticalIcon } from "@/components/icons";
 import { isType } from "@udecode/plate";
 import { BlockquotePlugin } from "@udecode/plate-block-quote/react";
 import { useDraggable, useDropLine } from "@udecode/plate-dnd";
@@ -25,7 +26,6 @@ import {
     usePluginOption,
 } from "@udecode/plate/react";
 import { useReadOnly, useSelected } from "@udecode/plate/react";
-import { GripVertical } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -228,7 +228,7 @@ const DragHandle = React.memo(function DragHandle() {
                     // biome-ignore lint/a11y/useSemanticElements: <explanation>
                     role="button"
                 >
-                    <GripVertical className="text-muted-foreground" />
+                    <GripVerticalIcon className="text-muted-foreground" />
                 </div>
             </TooltipTrigger>
             <TooltipContent>اسحب للتحريك</TooltipContent>

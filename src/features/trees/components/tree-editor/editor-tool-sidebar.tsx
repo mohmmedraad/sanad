@@ -1,5 +1,6 @@
 "use client";
 
+import { PlusIcon, XIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
     Popover,
@@ -8,7 +9,6 @@ import {
 } from "@/components/ui/popover";
 import { useTreeInteractionStore } from "@/store/tree-editor-store";
 import { Panel } from "@xyflow/react";
-import { Plus, X } from "lucide-react";
 import { useState } from "react";
 import type { nodeTypes } from "../../constants/tree-editor";
 import type { MobileDropEvent } from "../../types/tree-editor";
@@ -47,8 +47,8 @@ function InsertButton() {
                     id="insert-btn"
                     size="icon"
                 >
-                    {!open && <Plus />}
-                    {open && <X />}
+                    {!open && <PlusIcon />}
+                    {open && <XIcon />}
                 </Button>
             </PopoverTrigger>
             <PopoverContent side="right" align="start" className="w-56 md:w-72">

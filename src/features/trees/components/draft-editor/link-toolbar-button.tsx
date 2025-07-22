@@ -2,11 +2,11 @@
 
 import type * as React from "react";
 
+import { LinkIcon } from "@/components/icons";
 import {
     useLinkToolbarButton,
     useLinkToolbarButtonState,
 } from "@udecode/plate-link/react";
-import { Link } from "lucide-react";
 
 import { ToolbarButton } from "./toolbar";
 
@@ -23,7 +23,7 @@ export function LinkToolbarButton(
             data-plate-focus
             tooltip="رابط"
         >
-            <Link />
+            <LinkIcon />
         </ToolbarButton>
     );
 }

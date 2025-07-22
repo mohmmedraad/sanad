@@ -1,11 +1,11 @@
 "use client";
+import { LoaderCircleIcon } from "@/components/icons";
 import { useNarratorsLiveQuery } from "@/hooks/use-narrators";
 import type { TMentionInputElement } from "@udecode/plate-mention";
 import { getMentionOnSelectItem } from "@udecode/plate-mention";
 import type { PlateElementProps } from "@udecode/plate/react";
 import { PlateElement } from "@udecode/plate/react";
 import Fuse from "fuse.js";
-import { LoaderCircleIcon } from "lucide-react";
 import * as React from "react";
 import { MenuList } from "../tree-editor/menu-list";
 import { NarratorBadge } from "../tree-editor/narrator-badge";
@@ -67,7 +67,8 @@ export function MentionInputElement(
                         <div className="absolute inset-0 flex items-center justify-center">
                             <LoaderCircleIcon
                                 className="animate-spin"
-                                size={16}
+                                width={16}
+                                height={16}
                                 role="status"
                                 aria-label="جار التحميل..."
                             />
