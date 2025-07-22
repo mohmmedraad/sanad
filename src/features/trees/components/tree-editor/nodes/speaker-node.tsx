@@ -4,7 +4,10 @@ import NumberInput from "@/components/ui/number-input";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { changeNodes } from "@/features/trees/lib/utils";
-import { useTreeEditorStore } from "@/store/tree-editor-store";
+import {
+    useTreeEditorStore,
+    useTreeInteractionStore,
+} from "@/store/tree-editor-store";
 import { type NodeProps, Position } from "@xyflow/react";
 import { memo, useCallback } from "react";
 import type { SpeakerNode as NodeType } from "../../../types/tree-editor";
@@ -19,7 +22,9 @@ function SpeakerNode({
     className,
     ...props
 }: React.ComponentProps<"div"> & NodeProps<NodeType>) {
-    const setActiveNode = useTreeEditorStore((state) => state.setActiveNode);
+    const setActiveNode = useTreeInteractionStore(
+        (state) => state.setActiveNode,
+    );
 
     return (
         <Node

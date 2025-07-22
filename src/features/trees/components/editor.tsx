@@ -29,7 +29,6 @@ export default function Editor({ tree }: EditorProps) {
         init({
             ...tree,
             layout: "tree-editor",
-            isEditorFocus: false,
             miniMap: tree.showMiniMap,
         });
     }, [tree]);

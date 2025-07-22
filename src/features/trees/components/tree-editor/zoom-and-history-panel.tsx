@@ -1,6 +1,9 @@
 import ToolTipButton from "@/components/tooltip-button";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { useTreeEditorStore } from "@/store/tree-editor-store";
+import {
+    useTreeEditorStore,
+    useTreeInteractionStore,
+} from "@/store/tree-editor-store";
 import { Panel, useReactFlow, useViewport } from "@xyflow/react";
 import { Minus, Plus, Redo2, Undo2 } from "lucide-react";
 import { useCallback, useEffect } from "react";
@@ -19,7 +22,9 @@ export default function ZoomAndHistoryPanel() {
 function HistoryButtons() {
     const { undo, redo, pastStates, futureStates } =
         useTreeEditorStore.temporal.getState();
-    const isEditorFocus = useTreeEditorStore((state) => state.isEditorFocus);
+    const isEditorFocus = useTreeInteractionStore(
+        (state) => state.isEditorFocus,
+    );
 
     const handleUndo = useCallback(() => {
         const canUndo = pastStates.length > 1;

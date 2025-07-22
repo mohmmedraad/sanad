@@ -1,5 +1,8 @@
 import { getRandomId } from "@/lib/utils";
-import { useTreeEditorStore } from "@/store/tree-editor-store";
+import {
+    useTreeEditorStore,
+    useTreeInteractionStore,
+} from "@/store/tree-editor-store";
 import { type OnConnectEnd, useReactFlow } from "@xyflow/react";
 import { useCallback } from "react";
 import { createNode } from "../../lib/utils";
@@ -8,7 +11,9 @@ export const useOnEdgeDrop = () => {
     const { screenToFlowPosition } = useReactFlow();
     const setNodes = useTreeEditorStore((state) => state.setNodes);
     const setEdges = useTreeEditorStore((state) => state.setEdges);
-    const setActiveNode = useTreeEditorStore((state) => state.setActiveNode);
+    const setActiveNode = useTreeInteractionStore(
+        (state) => state.setActiveNode,
+    );
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     const onConnectEnd: OnConnectEnd = useCallback(

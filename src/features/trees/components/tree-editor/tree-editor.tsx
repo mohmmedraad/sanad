@@ -1,4 +1,7 @@
-import { useTreeEditorStore } from "@/store/tree-editor-store";
+import {
+    useTreeEditorStore,
+    useTreeInteractionStore,
+} from "@/store/tree-editor-store";
 import {
     Background,
     ConnectionMode,
@@ -33,16 +36,14 @@ interface TreeEditorProps {
 }
 
 export function TreeEditor({ children }: TreeEditorProps) {
-    const {
-        nodes,
-        edges,
-        miniMap,
-        onNodesChange,
-        onEdgesChange,
-        onConnect,
-        setActiveNode,
-        setIsEditorFocus,
-    } = useTreeEditorStore((state) => state);
+    const { nodes, edges, miniMap, onNodesChange, onEdgesChange, onConnect } =
+        useTreeEditorStore((state) => state);
+    const setActiveNode = useTreeInteractionStore(
+        (state) => state.setActiveNode,
+    );
+    const setIsEditorFocus = useTreeInteractionStore(
+        (state) => state.setIsEditorFocus,
+    );
 
     const { onDrop, onDragOver, onDragStart } = useNodeDrop();
     const { onConnectEnd } = useOnEdgeDrop();

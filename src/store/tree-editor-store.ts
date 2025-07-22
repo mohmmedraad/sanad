@@ -32,16 +32,8 @@ type TreeEditorStore = {
     title: string;
     layout: Layout;
     miniMap: boolean;
-    activeNode: string | null;
-    isEditorFocus: boolean;
-    currentDragedNode: CurrentDragedNode | null;
 
-    init: (
-        initialState: Omit<
-            OmitFunctions<TreeEditorStore>,
-            "currentDragedNode" | "activeNode"
-        >,
-    ) => void;
+    init: (initialState: OmitFunctions<TreeEditorStore>) => void;
     setId: (id: string) => void;
     setDraft: (draft: Value) => void;
     setTitle: (id: string) => void;
@@ -50,14 +42,15 @@ type TreeEditorStore = {
     onConnect: OnConnect;
     setLayout: (layout: Layout) => void;
     setMiniMap: (updater: (show: boolean) => boolean) => void;
-    setActiveNode: (id: string | null) => void;
     onNodesChange: OnNodesChange<Node>;
     onEdgesChange: OnEdgesChange;
-    setIsEditorFocus: (updater: (show: boolean) => boolean) => void;
-    setCurrentDragedNode: (node: CurrentDragedNode) => void;
 };
 
 let abortController: AbortController | null = null;
+// in the tree edit page i call the init function
+// from the store to sync data to store
+// and this trigger the persist middleware in the store
+let isFirstRequest = true;
 
 const createTreeStorage: () => StateStorage = () => {
     return {
@@ -69,6 +62,11 @@ const createTreeStorage: () => StateStorage = () => {
             const { state } = JSON.parse(value) as {
                 state: OmitFunctions<TreeEditorStore>;
             };
+
+            if (isFirstRequest) {
+                isFirstRequest = false;
+                return;
+            }
 
             if (abortController) {
                 abortController.abort();
@@ -130,9 +128,6 @@ export const useTreeEditorStore = create<TreeEditorStore>()(
                 title: "",
                 layout: "tree-editor",
                 miniMap: true,
-                activeNode: null,
-                isEditorFocus: false,
-                currentDragedNode: null,
 
                 init: (values) =>
                     set({
@@ -173,11 +168,6 @@ export const useTreeEditorStore = create<TreeEditorStore>()(
                         miniMap: updater(get().miniMap),
                     }),
 
-                setActiveNode: (id) =>
-                    set({
-                        activeNode: id,
-                    }),
-
                 onNodesChange: (changes) =>
                     set({
                         nodes: applyNodeChanges(changes, get().nodes),
@@ -188,14 +178,6 @@ export const useTreeEditorStore = create<TreeEditorStore>()(
                         edges: applyEdgeChanges(changes, get().edges),
                     });
                 },
-
-                setIsEditorFocus: (updater) =>
-                    set({
-                        isEditorFocus: updater(get().isEditorFocus),
-                    }),
-
-                setCurrentDragedNode: (node) =>
-                    set({ currentDragedNode: node }),
             })),
             {
                 limit: 50,
@@ -220,4 +202,45 @@ export const useTreeEditorStore = create<TreeEditorStore>()(
             }),
         },
     ),
+);
+
+type TreeInteractionStore = {
+    activeNode: string | null;
+    isEditorFocus: boolean;
+    currentDragedNode: CurrentDragedNode | null;
+
+    setActiveNode: (id: string | null) => void;
+    setIsEditorFocus: (updater: (focus: boolean) => boolean) => void;
+    setCurrentDragedNode: (node: CurrentDragedNode | null) => void;
+    clearUIState: () => void;
+};
+
+export const useTreeInteractionStore = create<TreeInteractionStore>()(
+    immer((set, get) => ({
+        activeNode: null,
+        isEditorFocus: false,
+        currentDragedNode: null,
+
+        setActiveNode: (id) =>
+            set({
+                activeNode: id,
+            }),
+
+        setIsEditorFocus: (updater) =>
+            set({
+                isEditorFocus: updater(get().isEditorFocus),
+            }),
+
+        setCurrentDragedNode: (node) =>
+            set({
+                currentDragedNode: node,
+            }),
+
+        clearUIState: () =>
+            set({
+                activeNode: null,
+                isEditorFocus: false,
+                currentDragedNode: null,
+            }),
+    })),
 );

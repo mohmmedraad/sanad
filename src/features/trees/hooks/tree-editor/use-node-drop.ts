@@ -1,12 +1,19 @@
-import { useTreeEditorStore } from "@/store/tree-editor-store";
+import {
+    useTreeEditorStore,
+    useTreeInteractionStore,
+} from "@/store/tree-editor-store";
 import { useReactFlow } from "@xyflow/react";
 import { useCallback, useEffect } from "react";
 import { createNode } from "../../lib/utils";
 import type { MobileDropEvent } from "../../types/tree-editor";
 
 export const useNodeDrop = () => {
-    const { setNodes, currentDragedNode, setActiveNode } = useTreeEditorStore(
-        (state) => state,
+    const { setNodes } = useTreeEditorStore((state) => state);
+    const currentDragedNode = useTreeInteractionStore(
+        (state) => state.currentDragedNode,
+    );
+    const setActiveNode = useTreeInteractionStore(
+        (state) => state.setActiveNode,
     );
 
     const { screenToFlowPosition } = useReactFlow();

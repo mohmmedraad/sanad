@@ -1,5 +1,8 @@
 import { getRandomId } from "@/lib/utils";
-import { useTreeEditorStore } from "@/store/tree-editor-store";
+import {
+    useTreeEditorStore,
+    useTreeInteractionStore,
+} from "@/store/tree-editor-store";
 import { useCopyToClipboard } from "@uidotdev/usehooks";
 import { useReactFlow } from "@xyflow/react";
 import { useCallback, useEffect } from "react";
@@ -12,7 +15,9 @@ type ClipboardData = {
 
 export const useCopyPasteNodes = () => {
     const { getNodes, getEdges } = useReactFlow();
-    const isEditorFocus = useTreeEditorStore((state) => state.isEditorFocus);
+    const isEditorFocus = useTreeInteractionStore(
+        (state) => state.isEditorFocus,
+    );
     const setNodes = useTreeEditorStore((state) => state.setNodes);
     const setEdges = useTreeEditorStore((state) => state.setEdges);
     const [_, copyToClipboard] = useCopyToClipboard();

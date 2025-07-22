@@ -6,7 +6,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import { useTreeEditorStore } from "@/store/tree-editor-store";
+import { useTreeInteractionStore } from "@/store/tree-editor-store";
 import { Panel } from "@xyflow/react";
 import { Plus, X } from "lucide-react";
 import { useState } from "react";
@@ -67,7 +67,7 @@ function ComponentsPanelComponent({
     title,
     type,
 }: (typeof NODES_COMPONENTS)[number]) {
-    const setCurrentDragedNode = useTreeEditorStore(
+    const setCurrentDragedNode = useTreeInteractionStore(
         (state) => state.setCurrentDragedNode,
     );
 

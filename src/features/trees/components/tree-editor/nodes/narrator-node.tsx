@@ -11,7 +11,10 @@ import { narratorGradesTranslation } from "@/constants";
 import { changeNodes, getCustomNarrator } from "@/features/trees/lib/utils";
 import { useNarratorsLiveQuery } from "@/hooks/use-narrators";
 import { cn } from "@/lib/utils";
-import { useTreeEditorStore } from "@/store/tree-editor-store";
+import {
+    useTreeEditorStore,
+    useTreeInteractionStore,
+} from "@/store/tree-editor-store";
 import type { NarratorGrade } from "@/types";
 import { type NodeProps, Position } from "@xyflow/react";
 import { type VariantProps, cva } from "class-variance-authority";
@@ -56,8 +59,10 @@ function NarratorNode({
 }: React.ComponentProps<"div"> &
     VariantProps<typeof narratorNodeVariants> &
     NodeProps<NodeType>) {
-    const setActiveNode = useTreeEditorStore((state) => state.setActiveNode);
-    const activeNode = useTreeEditorStore((state) => state.activeNode);
+    const setActiveNode = useTreeInteractionStore(
+        (state) => state.setActiveNode,
+    );
+    const activeNode = useTreeInteractionStore((state) => state.activeNode);
     const narrators = useNarratorsLiveQuery();
     const customNarrator = getCustomNarrator(data.narrator);
 

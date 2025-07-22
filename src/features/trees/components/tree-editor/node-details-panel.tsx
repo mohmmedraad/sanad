@@ -1,5 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { useTreeEditorStore } from "@/store/tree-editor-store";
+import {
+    useTreeEditorStore,
+    useTreeInteractionStore,
+} from "@/store/tree-editor-store";
 import { Panel, useKeyPress } from "@xyflow/react";
 import { Trash2, X } from "lucide-react";
 import { NarratorNodeDetails } from "./nodes/narrator-node";
@@ -15,8 +18,10 @@ const NODES = {
 };
 
 export default function NodeDetailsPanel() {
-    const activeNode = useTreeEditorStore((state) => state.activeNode);
-    const setActiveNode = useTreeEditorStore((state) => state.setActiveNode);
+    const activeNode = useTreeInteractionStore((state) => state.activeNode);
+    const setActiveNode = useTreeInteractionStore(
+        (state) => state.setActiveNode,
+    );
     const setNodes = useTreeEditorStore((state) => state.setNodes);
     const nodes = useTreeEditorStore((state) => state.nodes);
     const isEscape = useKeyPress("Escape");
