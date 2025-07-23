@@ -5,6 +5,11 @@ import { Separator } from "@/components/ui/separator";
 import CreateTreeButton from "@/features/trees/components/create-tree-button";
 import TreeList from "@/features/trees/components/tree-list";
 import { api } from "@/trpc/server";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "المشجرات",
+};
 
 async function ProfileTreesPage() {
     const initialTrees = await api.trees.list({});

@@ -12,19 +12,32 @@ export default function TreeEditorHeader() {
     const setLayout = useTreeEditorStore((state) => state.setLayout);
     const setTitle = useTreeEditorStore((state) => state.setTitle);
 
-    return (
-        <header className="h-[var(--header-hight)] border-[#d6d8da] border-b-2 border-dotted dark:border-gray-700">
-            <div className="flex h-full items-center justify-between px-2 md:px-10">
-                <div className="flex-1">
-                    <EditableTitle title={title} onTitleChange={setTitle} />
-                </div>
-                <div className="md:flex-1">
-                    <LayoutToggle value={layout} onValueChange={setLayout} />
-                </div>
+    useEffect(() => {
+        if (!document) {
+            return;
+        }
 
-                <div className="hidden md:block" />
-            </div>
-        </header>
+        document.title = `المشجرات - ${title}`;
+    }, [title]);
+
+    return (
+        <>
+            <header className="h-[var(--header-hight)] border-[#d6d8da] border-b-2 border-dotted dark:border-gray-700">
+                <div className="flex h-full items-center justify-between px-2 md:px-10">
+                    <div className="flex-1">
+                        <EditableTitle title={title} onTitleChange={setTitle} />
+                    </div>
+                    <div className="md:flex-1">
+                        <LayoutToggle
+                            value={layout}
+                            onValueChange={setLayout}
+                        />
+                    </div>
+
+                    <div className="hidden md:block" />
+                </div>
+            </header>
+        </>
     );
 }
 

@@ -1,4 +1,9 @@
-import { HelpCircleIcon, type Icon, SettingsIcon } from "@/components/icons";
+import {
+    HelpCircleIcon,
+    type Icon,
+    LogoIcon,
+    SettingsIcon,
+} from "@/components/icons";
 import { ModeToggleButton, ModeToggleGroup } from "@/components/mode-toggle";
 import {
     Sidebar,
@@ -40,11 +45,11 @@ export function ProfileSidebar({
                             className="data-[slot=sidebar-menu-button]:!p-1.5"
                         >
                             <div className="font-semibold text-base">
-                                <span className="group-data-[collapsible=icon]:hidden">
-                                    Sanad
+                                <span className="flex items-center gap-3 group-data-[collapsible=icon]:hidden">
+                                    <LogoIcon className="size-6" /> سند
                                 </span>
                                 <span className="mx-auto hidden group-data-[collapsible=icon]:block">
-                                    S
+                                    <LogoIcon className="size-6" />
                                 </span>
                             </div>
                         </SidebarMenuButton>
