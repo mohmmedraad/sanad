@@ -22,7 +22,7 @@ export default function LoginCard() {
         mutationFn: async () => {
             const { data, error } = await authClient.signIn.social({
                 provider: "google",
-                callbackURL: `${env.NEXT_PUBLIC_WEBSITE_URL}/profile`,
+                callbackURL: `${env.NEXT_PUBLIC_WEBSITE_URL}/profile/trees`,
                 errorCallbackURL: `${env.NEXT_PUBLIC_WEBSITE_URL}/login`,
             });
 
