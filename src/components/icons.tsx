@@ -43,6 +43,7 @@ import {
     ListOrdered,
     ListTodo,
     LoaderCircle,
+    LogOut,
     Menu,
     Mic,
     Minus,
@@ -220,3 +221,4 @@ export const UnlinkIcon = (props: IconProps) => <Unlink {...props} />;
 export const MenuIcon = (props: IconProps) => <Menu {...props} />;
 export const DownloadIcon = (props: IconProps) => <Download {...props} />;
 export const CopyIcon = (props: IconProps) => <Copy {...props} />;
+export const LogOutIcon = (props: IconProps) => <LogOut {...props} />;

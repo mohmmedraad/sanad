@@ -1,4 +1,4 @@
-import { GalleryVerticalEndIcon } from "@/components/icons";
+import { LogoIcon } from "@/components/icons";
 import LoginCard from "@/features/auth/components/login-card";
 import { Suspense } from "react";
 
@@ -10,8 +10,8 @@ export default function LoginPage() {
                     href="/"
                     className="flex items-center gap-2 self-center font-medium"
                 >
-                    <div className="flex size-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
-                        <GalleryVerticalEndIcon className="size-4" />
+                    <div className="flex items-center justify-center rounded-md text-primary-foreground">
+                        <LogoIcon className="size-6" />
                     </div>
                     سند
                 </a>
