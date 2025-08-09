@@ -28,12 +28,13 @@ export type NarratorNode = ReactFlowNode<{
 }> & {
     type: NodeType;
 };
-export type NarratorType =
-    | { id: number }
-    | {
-          name: string;
-          grade: NarratorGrade;
-      };
+export type NarratorType = {
+    id?: number;
+    name: string;
+    grade: NarratorGrade;
+    gradeAr: string;
+    gradeEn: string;
+};
 
 export type Node = SpeakerNode | NarratorNode;
 

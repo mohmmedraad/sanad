@@ -1,5 +1,6 @@
 import { clientDB } from "@/client-db";
 import type { NarratorsTable } from "@/client-db/schema";
+import { narratorGradesTranslation } from "@/constants";
 import { getRandomId } from "@/lib/utils";
 import dagre from "@dagrejs/dagre";
 import type { XYPosition } from "@xyflow/react";
@@ -47,6 +48,10 @@ export function createNode(node: CurrentDragedNode, position: XYPosition) {
                 title: node.title,
                 narrator: {
                     id: 4,
+                    name: "آدم بن سليمان",
+                    grade: "saduq",
+                    gradeAr: "صدوق",
+                    gradeEn: "saduq",
                 },
             },
             position,
@@ -88,8 +93,11 @@ export function changeNodes(
     }
 }
 
-export function getCustomNarrator(narrator: NarratorType) {
-    return "name" in narrator ? narrator : null;
+export function getCustomNarrator(narrator: NarratorType): NarratorType | null {
+    if ("id" in narrator) {
+        return null;
+    }
+    return narrator;
 }
 
 const getLayoutedTree = <T extends Node>({
@@ -192,22 +200,22 @@ const convertMindMupToReactFlow = async (
     ): string => {
         const currentNodeId = getRandomId();
         const title = extractNodeTitle(node, currentNodeId);
-        // const position = calculatePosition(
-        //     level,
-        //     siblingIndex,
-        //     totalSiblings,
-        //     layout,
-        // );
 
         const findedNarrator = narratorSearch.search(title).at(0)?.item;
 
         const narrator: NarratorType = findedNarrator
             ? {
                   id: findedNarrator.id,
+                  name: findedNarrator.name,
+                  grade: findedNarrator.grade,
+                  gradeAr: findedNarrator.gradeAr,
+                  gradeEn: findedNarrator.gradeEn,
               }
             : {
                   name: title,
                   grade: "majhool",
+                  gradeAr: narratorGradesTranslation.majhool,
+                  gradeEn: "majhool",
               };
 
         const reactFlowNode: NarratorNode = createNarratorNode(
