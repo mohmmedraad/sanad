@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 
+import type { NarratorsTable } from "@/client-db/schema";
 import { CheckIcon, ChevronDownIcon, CircleHelpIcon } from "@/components/icons";
 import NarratorTooltip from "@/components/narrator-tooltip";
 import SearchInput from "@/components/search-input";
@@ -24,7 +25,7 @@ export default function NarratorSelect({
 }: {
     id: string;
     narratorId?: string;
-    onChange?: (narratorId: number) => void;
+    onChange?: (narrator: NarratorsTable) => void;
 }) {
     const [open, setOpen] = useState<boolean>(false);
     const [value, setValue] = useState<string>(narratorId);
@@ -134,7 +135,7 @@ export default function NarratorSelect({
                                         type="button"
                                         className="relative flex w-full cursor-default select-none items-center gap-3 rounded-md px-2 py-1.5 text-start text-sm outline-hidden data-[disabled=true]:pointer-events-none data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0"
                                         onClick={() => {
-                                            onChange?.(narrator.id);
+                                            onChange?.(narrator);
                                             setValue(narrator.id.toString());
                                             setOpen(false);
                                         }}

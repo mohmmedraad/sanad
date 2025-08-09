@@ -64,12 +64,11 @@ function NarratorNode({
     );
     const activeNode = useTreeInteractionStore((state) => state.activeNode);
     const narrators = useNarratorsLiveQuery();
-    const customNarrator = getCustomNarrator(data.narrator);
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-    const narrator = useMemo(() => {
-        if (customNarrator) {
-            return;
+    const narratorFullInfo = useMemo(() => {
+        if (!data.narrator.id) {
+            return data.narrator;
         }
 
         // @ts-ignore
@@ -77,10 +76,12 @@ function NarratorNode({
         // @ts-ignore
     }, [data.narrator.id, narrators]);
 
-    const grade = customNarrator
-        ? (customNarrator?.grade ?? "companion")
+    const narrator = narratorFullInfo ?? data.narrator;
+
+    const grade = narrator?.id
+        ? (narrator?.grade ?? "companion")
         : narrator?.grade;
-    const name = customNarrator?.name ?? narrator?.name;
+    const name = narrator?.name;
 
     return (
         <Node
@@ -100,9 +101,9 @@ function NarratorNode({
         >
             <NarratorNodeHandles />
             <NarratorNodeGrade grade={grade}>
-                {customNarrator
-                    ? narratorGradesTranslation[grade as NarratorGrade]
-                    : narrator?.gradeAr}
+                {narrator?.gradeAr
+                    ? narrator.gradeAr
+                    : narratorGradesTranslation[grade as NarratorGrade]}
             </NarratorNodeGrade>
             <div className="m-[1px] w-full px-4 text-card-foreground">
                 {name}
@@ -204,7 +205,11 @@ export const NarratorNodeDetails = memo(({ node }: { node: NodeType }) => {
                                     changeNodes(nodes, node.id, (node) => {
                                         // @ts-ignore
                                         node.data.narrator = {
-                                            id: value,
+                                            id: value.id,
+                                            name: value.name,
+                                            grade: value.grade,
+                                            gradeAr: value.gradeAr,
+                                            gradeEn: value.gradeEn,
                                         };
                                     }),
                                 );
