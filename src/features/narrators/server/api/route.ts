@@ -1,5 +1,5 @@
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
-import { NarratorsService } from "../../service";
+import { NarratorsService } from "../service";
 
 const narratorsService = new NarratorsService();
 
