@@ -13,6 +13,7 @@ import type {
     LayoutOptions,
     MindMupData,
     MindMupNode,
+    MobileDropEvent,
     NarratorNode,
     NarratorType,
     Node,
@@ -375,3 +376,31 @@ export function findPositionNodes(nodes: Node[]) {
 }
 
 export { convertMindMupToReactFlow, calculatePosition, extractNodeTitle };
+
+export function styleDragNodeElement(el: HTMLElement, x: number, y: number) {
+    el.style.position = "fixed";
+    el.style.top = `${y - 20}px`;
+    el.style.left = `${x - 50}px`;
+    el.style.opacity = "0.8";
+    el.style.pointerEvents = "none";
+    el.style.zIndex = "9999";
+    el.style.transform = "rotate(5deg)";
+    el.id = "mobile-drag-element";
+}
+
+export function positionDragNodeElement(el: HTMLElement, x: number, y: number) {
+    el.style.left = `${x - 50}px`;
+    el.style.top = `${y - 20}px`;
+}
+
+export function dispatchMobileDropNodeEvent(
+    e: TouchEvent,
+    node: { title: string; type: NodeType },
+) {
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
+    const touch = e.changedTouches[0]!;
+    const dropEvent = new CustomEvent("mobileDrop", {
+        detail: { ...node, clientX: touch.clientX, clientY: touch.clientY },
+    }) satisfies MobileDropEvent;
+    document.dispatchEvent(dropEvent);
+}

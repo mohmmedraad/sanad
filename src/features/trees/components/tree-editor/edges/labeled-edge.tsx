@@ -7,7 +7,7 @@ import {
     type EdgeProps,
     getSmoothStepPath,
 } from "@xyflow/react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 export default function LabeledEdge({
     id,
@@ -47,16 +47,7 @@ export default function LabeledEdge({
         },
     );
 
-    useEffect(() => {
-        if (isEditing && inputRef.current) {
-            inputRef.current.focus();
-            inputRef.current.select();
-        }
-    }, [isEditing]);
-
-    const handleDoubleClick = () => {
-        setIsEditing(true);
-    };
+    const handleDoubleClick = () => {};
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLabelValue(e.target.value);
@@ -68,10 +59,6 @@ export default function LabeledEdge({
         } else if (e.key === "Escape") {
             cancelEdit();
         }
-    };
-
-    const handleBlur = () => {
-        saveLabel();
     };
 
     const saveLabel = () => {
@@ -132,14 +119,16 @@ export default function LabeledEdge({
                         <input
                             ref={inputRef}
                             type="text"
-                            value={labelValue}
-                            onChange={handleInputChange}
-                            onKeyDown={handleKeyDown}
-                            onBlur={handleBlur}
-                            className="border-none bg-transparent text-center outline-none"
                             style={{
                                 width: `${Math.max(labelValue.length * 8, 50)}px`,
                             }}
+                            value={labelValue}
+                            onChange={handleInputChange}
+                            onBlur={saveLabel}
+                            onKeyDown={handleKeyDown}
+                            className="border-none bg-transparent text-center outline-none"
+                            // biome-ignore lint/a11y/noAutofocus: <explanation>
+                            autoFocus
                         />
                     )}
 

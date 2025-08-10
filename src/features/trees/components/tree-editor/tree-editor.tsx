@@ -49,8 +49,7 @@ export function TreeEditor({ children }: TreeEditorProps) {
     const { onConnectEnd } = useOnEdgeDrop();
     const reactFlowRef = useRef<HTMLDivElement>(null);
     useCopyPasteNodes();
-    const editrContainerRef = useClickAway<HTMLDivElement>(() => {
-        console.log("clicked away from tree editr");
+    const editorContainerRef = useClickAway<HTMLDivElement>(() => {
         setIsEditorFocus(() => false);
     });
 
@@ -71,7 +70,7 @@ export function TreeEditor({ children }: TreeEditorProps) {
                 width: "100%",
                 height: "calc(100dvh - var(--header-hight))",
             }}
-            ref={editrContainerRef}
+            ref={editorContainerRef}
         >
             <ReactFlow
                 ref={reactFlowRef}

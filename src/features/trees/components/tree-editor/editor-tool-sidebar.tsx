@@ -1,5 +1,4 @@
 "use client";
-
 import { PlusIcon, XIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,29 +10,27 @@ import { useTreeInteractionStore } from "@/store/tree-editor-store";
 import { Panel } from "@xyflow/react";
 import { useState } from "react";
 import type { nodeTypes } from "../../constants/tree-editor";
-import type { MobileDropEvent } from "../../types/tree-editor";
+import {
+    dispatchMobileDropNodeEvent,
+    positionDragNodeElement,
+    styleDragNodeElement,
+} from "../../lib/utils";
+
+const NODES_COMPONENTS: {
+    title: string;
+    type: keyof typeof nodeTypes;
+}[] = [
+    { title: "صاحب الحديث", type: "speaker" },
+    { title: "راوي", type: "narrator" },
+];
 
 export default function EditorToolSidebar() {
     return (
-        <Panel position={"top-left"}>
+        <Panel position="top-left">
             <InsertButton />
         </Panel>
     );
 }
-
-export const NODES_COMPONENTS: {
-    title: string;
-    type: keyof typeof nodeTypes;
-}[] = [
-    {
-        title: "صاحب الحديث",
-        type: "speaker",
-    },
-    {
-        title: "راوي",
-        type: "narrator",
-    },
-];
 
 function InsertButton() {
     const [open, setOpen] = useState(false);
@@ -42,20 +39,20 @@ function InsertButton() {
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
                 <Button
-                    className="cursor-pointer"
-                    variant={"secondary"}
                     id="insert-btn"
                     size="icon"
+                    variant="secondary"
+                    className="cursor-pointer"
                 >
-                    {!open && <PlusIcon />}
-                    {open && <XIcon />}
+                    {open ? <XIcon /> : <PlusIcon />}
                 </Button>
             </PopoverTrigger>
+
             <PopoverContent side="right" align="start" className="w-56 md:w-72">
                 <h4 className="font-medium leading-none">العُقد</h4>
                 <div className="mt-4 grid gap-2">
-                    {NODES_COMPONENTS.map((c) => (
-                        <ComponentsPanelComponent key={c.title} {...c} />
+                    {NODES_COMPONENTS.map((node) => (
+                        <NodeDraggable key={node.title} {...node} />
                     ))}
                 </div>
             </PopoverContent>
@@ -63,110 +60,54 @@ function InsertButton() {
     );
 }
 
-function ComponentsPanelComponent({
-    title,
-    type,
-}: (typeof NODES_COMPONENTS)[number]) {
+function NodeDraggable({ title, type }: (typeof NODES_COMPONENTS)[number]) {
     const setCurrentDragedNode = useTreeInteractionStore(
-        (state) => state.setCurrentDragedNode,
+        (s) => s.setCurrentDragedNode,
     );
 
-    const handleTouchStart = (e: TouchEvent) => {
-        // e.preventDefault();
+    const startDesktopDrag = (e: React.DragEvent) => {
         e.stopPropagation();
+        setCurrentDragedNode({ title, type });
+    };
 
-        setCurrentDragedNode({
-            title,
-            type,
-        });
+    const startMobileDrag = (e: TouchEvent) => {
+        e.stopPropagation();
+        setCurrentDragedNode({ title, type });
 
-        // Create a visual feedback element for mobile
         // biome-ignore lint/style/noNonNullAssertion: <explanation>
         const touch = e.touches[0]!;
-        // @ts-ignore
-        const dragElement = e.currentTarget?.cloneNode(true);
-        dragElement.style.position = "fixed";
-        dragElement.style.top = `${touch.clientY - 20}px`;
-        dragElement.style.left = `${touch.clientX - 50}px`;
-        dragElement.style.opacity = "0.8";
-        dragElement.style.pointerEvents = "none";
-        dragElement.style.zIndex = "9999";
-        dragElement.style.transform = "rotate(5deg)";
-        dragElement.id = "mobile-drag-element";
+        const dragEl = (e.currentTarget as HTMLElement)?.cloneNode(
+            true,
+        ) as HTMLElement;
+        styleDragNodeElement(dragEl, touch.clientX, touch.clientY);
 
-        document.body.appendChild(dragElement);
+        document.body.appendChild(dragEl);
 
-        // Store initial touch position
-        const initialX = touch.clientX;
-        const initialY = touch.clientY;
-
-        const handleTouchMove = (moveEvent: TouchEvent) => {
+        const moveHandler = (moveEvent: TouchEvent) => {
             // biome-ignore lint/style/noNonNullAssertion: <explanation>
-            const currentTouch = moveEvent.touches[0]!;
-            const dragEl = document.getElementById("mobile-drag-element");
-
-            if (dragEl) {
-                dragEl.style.left = `${currentTouch.clientX - 50}px`;
-                dragEl.style.top = `${currentTouch.clientY - 20}px`;
-            }
+            const touch = moveEvent.touches[0]!;
+            positionDragNodeElement(dragEl, touch.clientX, touch.clientY);
         };
 
-        const handleTouchEnd = (endEvent: TouchEvent) => {
-            // Clean up the drag element
-            const dragEl = document.getElementById("mobile-drag-element");
-            if (dragEl) {
-                dragEl.remove();
-            }
-
-            // Find the element under the touch point
-            // biome-ignore lint/style/noNonNullAssertion: <explanation>
-            const touch = endEvent.changedTouches[0]!;
-            const elementBelow = document.elementFromPoint(
-                touch.clientX,
-                touch.clientY,
-            );
-
-            // Trigger drop event on the target element if it accepts drops
-            if (elementBelow) {
-                const dropEvent = new CustomEvent("mobileDrop", {
-                    detail: {
-                        title,
-                        type,
-                        clientX: touch.clientX,
-                        clientY: touch.clientY,
-                    },
-                }) satisfies MobileDropEvent;
-                document.dispatchEvent(dropEvent);
-            }
-
-            // Remove event listeners
-            document.removeEventListener("touchmove", handleTouchMove);
-            document.removeEventListener("touchend", handleTouchEnd);
+        const endHandler = (endEvent: TouchEvent) => {
+            dragEl.remove();
+            dispatchMobileDropNodeEvent(endEvent, { title, type });
+            document.removeEventListener("touchmove", moveHandler);
+            document.removeEventListener("touchend", endHandler);
         };
 
-        // Add event listeners for move and end
-        document.addEventListener("touchmove", handleTouchMove, {
-            passive: false,
-        });
-        document.addEventListener("touchend", handleTouchEnd, {
-            passive: false,
-        });
+        document.addEventListener("touchmove", moveHandler, { passive: false });
+        document.addEventListener("touchend", endHandler, { passive: false });
     };
 
     return (
         <div
             dir="auto"
             draggable
-            onDragStart={(e) => {
-                e.stopPropagation();
-                setCurrentDragedNode({
-                    title,
-                    type,
-                });
-            }}
-            // @ts-ignore
-            onTouchStart={handleTouchStart}
-            className="flex touch-none select-none flex-row items-center gap-2 space-y-0 rounded-md border bg-card p-2 text-base text-card-foreground shadow-none hover:cursor-grab hover:bg-gray-50 active:cursor-grabbing dark:hover:bg-gray-950"
+            onDragStart={startDesktopDrag}
+            // @ts-ignore — because React's TouchEvent type differs
+            onTouchStart={startMobileDrag}
+            className="flex touch-none select-none items-center gap-2 rounded-md border bg-card p-2 text-base text-card-foreground hover:cursor-grab hover:bg-gray-50 active:cursor-grabbing dark:hover:bg-gray-950"
         >
             {title}
         </div>

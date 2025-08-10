@@ -4,7 +4,7 @@ import type {
     Edge as ReactFlowEdge,
     Node as ReactFlowNode,
 } from "@xyflow/react";
-import type { mindMapFileSchema } from "../schema/tree-editor";
+import type { mindmupFileSchema } from "../schema/tree-editor";
 
 export type NodeType = "narrator" | "speaker";
 
@@ -71,7 +71,7 @@ export interface MindMupNode {
     ideas?: Record<string, MindMupNode>;
 }
 
-export type MindMupData = inferSchemaType<typeof mindMapFileSchema>;
+export type MindMupData = inferSchemaType<typeof mindmupFileSchema>;
 
 export interface ConversionResult {
     nodes: NarratorNode[];

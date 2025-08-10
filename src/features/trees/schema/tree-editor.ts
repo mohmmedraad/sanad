@@ -30,7 +30,7 @@ const connectionSchema = z.object({
     }),
 });
 
-export const mindMapFileSchema = z.object({
+export const mindmupFileSchema = z.object({
     formatVersion: z.number(),
     id: z.string(),
     title: z.string(),

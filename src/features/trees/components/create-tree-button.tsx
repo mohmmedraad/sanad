@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input";
 import type { inferSchemaType } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useCreateTree } from "../hooks";
 import { addTreeSchema } from "../schema";
@@ -37,20 +37,18 @@ export default function CreateTreeButton(props: CreateTreeButtonProps) {
         },
     });
     const [open, setOpen] = useState(false);
-    const { createTree, isPending, isSuccess } = useCreateTree();
     const utils = api.useUtils();
+    const { createTree, isPending, isSuccess } = useCreateTree({
+        onSuccess: () => {
+            setOpen(false);
+            utils.trees.list.invalidate();
+            form.reset();
+        },
+    });
 
     async function onSubmit(values: inferSchemaType<typeof addTreeSchema>) {
         return createTree(values);
     }
-
-    useEffect(() => {
-        if (isSuccess) {
-            setOpen(false);
-            utils.trees.list.invalidate();
-            form.reset();
-        }
-    }, [isSuccess, form, utils]);
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
