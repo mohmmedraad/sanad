@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTreeEditorStore } from "@/store/tree-editor-store";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function TreeEditorHeader() {
     return (
@@ -30,8 +30,9 @@ function EditableTitle() {
     const [editValue, setEditValue] = useState(title);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    // title starts as "" because the store hasn't been updated yet
-    const currentValue = isEditing ? (editValue ? editValue : title) : title;
+    useEffect(() => {
+        setEditValue(title);
+    }, [title]);
 
     const handleSubmit = () => {
         const newTitle = editValue.trim();
@@ -60,7 +61,7 @@ function EditableTitle() {
                     width: "150px",
                     boxSizing: "initial",
                 }}
-                value={currentValue}
+                value={editValue}
                 onBlur={handleSubmit}
                 onChange={(e) => setEditValue(e.target.value)}
                 onKeyDown={handleKeyDown}
