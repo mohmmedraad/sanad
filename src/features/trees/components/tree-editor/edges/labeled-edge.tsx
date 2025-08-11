@@ -47,7 +47,9 @@ export default function LabeledEdge({
         },
     );
 
-    const handleDoubleClick = () => {};
+    const handleDoubleClick = () => {
+        setIsEditing(true);
+    };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLabelValue(e.target.value);
