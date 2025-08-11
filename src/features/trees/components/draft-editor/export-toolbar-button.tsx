@@ -39,12 +39,6 @@ import { BaseKbdPlugin } from "@udecode/plate-kbd";
 import { BaseColumnItemPlugin, BaseColumnPlugin } from "@udecode/plate-layout";
 import { BaseLinkPlugin } from "@udecode/plate-link";
 import { BaseMentionPlugin } from "@udecode/plate-mention";
-import {
-    BaseTableCellHeaderPlugin,
-    BaseTableCellPlugin,
-    BaseTablePlugin,
-    BaseTableRowPlugin,
-} from "@udecode/plate-table";
 import { BaseTogglePlugin } from "@udecode/plate-toggle";
 import { useEditorRef } from "@udecode/plate/react";
 
@@ -67,12 +61,6 @@ import { TodoLiStatic, TodoMarkerStatic } from "./indent-todo-marker-static";
 import { LinkElementStatic } from "./link-element-static";
 import { MentionElementStatic } from "./mention-element-static";
 import { ParagraphElementStatic } from "./paragraph-element-static";
-import {
-    TableCellElementStatic,
-    TableCellHeaderStaticElement,
-} from "./table-cell-element-static";
-import { TableElementStatic } from "./table-element-static";
-import { TableRowElementStatic } from "./table-row-element-static";
 import { TocElementStatic } from "./toc-element-static";
 import { ToggleElementStatic } from "./toggle-element-static";
 
@@ -174,10 +162,6 @@ export function ExportToolbarButton(props: DropdownMenuProps) {
             [BaseStrikethroughPlugin.key]: withProps(SlateLeaf, { as: "del" }),
             [BaseSubscriptPlugin.key]: withProps(SlateLeaf, { as: "sub" }),
             [BaseSuperscriptPlugin.key]: withProps(SlateLeaf, { as: "sup" }),
-            [BaseTableCellHeaderPlugin.key]: TableCellHeaderStaticElement,
-            [BaseTableCellPlugin.key]: TableCellElementStatic,
-            [BaseTablePlugin.key]: TableElementStatic,
-            [BaseTableRowPlugin.key]: TableRowElementStatic,
             [BaseTocPlugin.key]: TocElementStatic,
             [BaseTogglePlugin.key]: ToggleElementStatic,
             [BaseUnderlinePlugin.key]: withProps(SlateLeaf, { as: "u" }),
@@ -251,9 +235,6 @@ export function ExportToolbarButton(props: DropdownMenuProps) {
                     },
                 }),
                 BaseLinkPlugin,
-                BaseTableRowPlugin,
-                BaseTablePlugin,
-                BaseTableCellPlugin,
                 BaseHorizontalRulePlugin,
                 BaseFontColorPlugin,
                 BaseFontBackgroundColorPlugin,

@@ -58,6 +58,8 @@ export function TableCellElement({
             rowIndex,
         });
 
+    console.log({ borders });
+
     return (
         <PlateElement
             {...props}
@@ -80,6 +82,7 @@ export function TableCellElement({
                     "--cellBackground": element.background,
                     maxWidth: width || 240,
                     minWidth: width || 120,
+                    dir: "rtl",
                 } as React.CSSProperties
             }
             attributes={{
@@ -105,7 +108,7 @@ export function TableCellElement({
                         <>
                             <ResizeHandle
                                 {...rightProps}
-                                className="-top-2 -right-1 h-[calc(100%_+_8px)] w-2"
+                                className="-top-2 -left-1 h-[calc(100%_+_8px)] w-2"
                                 data-col={colIndex}
                             />
                             <ResizeHandle
@@ -115,7 +118,7 @@ export function TableCellElement({
                             {!hiddenLeft && (
                                 <ResizeHandle
                                     {...leftProps}
-                                    className="-left-1 top-0 w-2"
+                                    className="-right-1 top-0 w-2"
                                     data-resizer-left={
                                         colIndex === 0 ? "true" : undefined
                                     }
@@ -125,7 +128,7 @@ export function TableCellElement({
                             <div
                                 className={cn(
                                     "absolute top-0 z-30 hidden h-full w-1 bg-ring",
-                                    "right-[-1.5px]",
+                                    "left-[-1.5px]",
                                     columnResizeVariants({
                                         // @ts-ignore
                                         colIndex: colIndex,
@@ -136,7 +139,7 @@ export function TableCellElement({
                                 <div
                                     className={cn(
                                         "absolute top-0 z-30 h-full w-1 bg-ring",
-                                        "left-[-1.5px]",
+                                        "right-[-1.5px]",
                                         `fade-in group-has-[[data-resizer-left][data-resizing= group-has-[[data-resizer-left]:hover]/table:block"true"]]/table:block hidden animate-in`,
                                     )}
                                 />

@@ -24,12 +24,6 @@ import {
     MentionPlugin,
 } from "@udecode/plate-mention/react";
 import { SlashInputPlugin } from "@udecode/plate-slash-command/react";
-import {
-    TableCellHeaderPlugin,
-    TableCellPlugin,
-    TablePlugin,
-    TableRowPlugin,
-} from "@udecode/plate-table/react";
 import { TogglePlugin } from "@udecode/plate-toggle/react";
 import {
     type CreatePlateEditorOptions,
@@ -53,9 +47,6 @@ import { editorPlugins } from "./plugins/editor-plugins";
 import { FloatingToolbarPlugin } from "./plugins/floating-toolbar-plugin";
 import { HadithElement, HadithPlugin } from "./plugins/hadith-plugin";
 import { SlashInputElement } from "./slash-input-element";
-import { TableCellElement, TableCellHeaderElement } from "./table-cell-element";
-import { TableElement } from "./table-element";
-import { TableRowElement } from "./table-row-element";
 import { TocElement } from "./toc-element";
 import { ToggleElement } from "./toggle-element";
 
@@ -79,10 +70,6 @@ export const viewComponents = {
     [StrikethroughPlugin.key]: withProps(PlateLeaf, { as: "s" }),
     [SubscriptPlugin.key]: withProps(PlateLeaf, { as: "sub" }),
     [SuperscriptPlugin.key]: withProps(PlateLeaf, { as: "sup" }),
-    [TableCellHeaderPlugin.key]: TableCellHeaderElement,
-    [TableCellPlugin.key]: TableCellElement,
-    [TablePlugin.key]: TableElement,
-    [TableRowPlugin.key]: TableRowElement,
     [TocPlugin.key]: TocElement,
     [TogglePlugin.key]: ToggleElement,
     [UnderlinePlugin.key]: withProps(PlateLeaf, { as: "u" }),

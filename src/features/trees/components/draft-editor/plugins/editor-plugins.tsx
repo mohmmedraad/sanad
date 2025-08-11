@@ -31,7 +31,6 @@ import { mentionPlugin } from "./mention-plugin";
 import { resetBlockTypePlugin } from "./reset-block-type-plugin";
 import { skipMarkPlugin } from "./skip-mark-plugin";
 import { softBreakPlugin } from "./soft-break-plugin";
-import { tablePlugin } from "./table-plugin";
 import { tocPlugin } from "./toc-plugin";
 
 export const viewPlugins = [
@@ -40,7 +39,6 @@ export const viewPlugins = [
     linkPlugin,
     DatePlugin,
     mentionPlugin,
-    tablePlugin,
     TogglePlugin,
     tocPlugin,
     ColumnPlugin,
