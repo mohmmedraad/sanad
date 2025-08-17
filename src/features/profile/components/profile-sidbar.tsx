@@ -22,7 +22,7 @@ export function ProfileSidebar({
                     <SidebarMenuItem>
                         <SidebarMenuButton
                             asChild
-                            className="data-[slot=sidebar-menu-button]:!p-1.5"
+                            className="data-[slot=sidebar-menu-button]:!p-1.5 pointer-events-none"
                         >
                             <div className="font-semibold text-base">
                                 <span className="flex items-center gap-3 group-data-[collapsible=icon]:hidden">
