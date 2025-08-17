@@ -1,14 +1,9 @@
-import {
-    HelpCircleIcon,
-    type Icon,
-    LogoIcon,
-    SettingsIcon,
-} from "@/components/icons";
+import { LogoIcon } from "@/components/icons";
 import { ModeToggleButton, ModeToggleGroup } from "@/components/mode-toggle";
 import {
     Sidebar,
     SidebarContent,
-    SidebarGroup,
+    SidebarFooter,
     SidebarGroupContent,
     SidebarHeader,
     SidebarMenu,
@@ -16,21 +11,6 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import NavMain from "./nav-main";
-
-const data = {
-    navSecondary: [
-        {
-            title: "الاعدادات",
-            url: "#",
-            icon: SettingsIcon,
-        },
-        {
-            title: "مساعدة",
-            url: "#",
-            icon: HelpCircleIcon,
-        },
-    ],
-};
 
 export function ProfileSidebar({
     ...props
@@ -58,49 +38,20 @@ export function ProfileSidebar({
             </SidebarHeader>
             <SidebarContent>
                 <NavMain />
-                <NavSecondary items={data.navSecondary} className="mt-auto" />
-                <SidebarGroup>
-                    <SidebarGroupContent className="flex flex-col gap-2">
-                        <SidebarMenu>
-                            <ModeToggleButton className="hidden group-data-[collapsible=icon]:inline-flex" />
-                        </SidebarMenu>
-
-                        <SidebarMenu>
-                            <ModeToggleGroup className="mx-auto group-data-[collapsible=icon]:hidden" />
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
             </SidebarContent>
-        </Sidebar>
-    );
-}
+            <SidebarFooter>
+                {/*<SidebarGroup>   */}
+                <SidebarGroupContent className="flex flex-col gap-2">
+                    <SidebarMenu>
+                        <ModeToggleButton className="hidden group-data-[collapsible=icon]:inline-flex" />
+                    </SidebarMenu>
 
-export function NavSecondary({
-    items,
-    ...props
-}: {
-    items: {
-        title: string;
-        url: string;
-        icon: Icon;
-    }[];
-} & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
-    return (
-        <SidebarGroup {...props}>
-            <SidebarGroupContent>
-                <SidebarMenu>
-                    {items.map((item) => (
-                        <SidebarMenuItem key={item.title}>
-                            <SidebarMenuButton asChild>
-                                <a href={item.url}>
-                                    <item.icon />
-                                    <span>{item.title}</span>
-                                </a>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
-                    ))}
-                </SidebarMenu>
-            </SidebarGroupContent>
-        </SidebarGroup>
+                    <SidebarMenu>
+                        <ModeToggleGroup className="mx-auto group-data-[collapsible=icon]:hidden" />
+                    </SidebarMenu>
+                </SidebarGroupContent>
+                {/*</SidebarGroup>*/}
+            </SidebarFooter>
+        </Sidebar>
     );
 }
