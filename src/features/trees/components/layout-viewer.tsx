@@ -29,14 +29,14 @@ export function LayoutViewer({
             )}
             {layout === "both" && (
                 <>
-                    <ResizablePanel className="min-w-[400px]">
-                        {draft}
-                    </ResizablePanel>
-                    <ResizableHandle withHandle />
                     <ResizablePanel className="min-w-[50vw]">
                         <div onDragOver={(e) => e.stopPropagation()}>
                             {editor}
                         </div>
+                    </ResizablePanel>
+                    <ResizableHandle withHandle />
+                    <ResizablePanel className="min-w-[400px]">
+                        {draft}
                     </ResizablePanel>
                 </>
             )}
