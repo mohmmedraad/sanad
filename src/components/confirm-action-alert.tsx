@@ -15,8 +15,8 @@ type ConfirmActionAlertPorps = {
     title: string;
     children: React.ReactNode;
     description: string;
-    onConfirm?: () => void;
-    onCancel?: () => void;
+    onConfirm?: React.MouseEventHandler<HTMLButtonElement>;
+    onCancel?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 export default function ConfirmActionAlert({

@@ -75,50 +75,57 @@ export default function TreeCard(tree: {
     };
 
     return (
-        <Card
-            className={cn(
-                "gap-0 p-3 shadow-xs transition-shadow duration-200 hover:shadow-md",
-                tree.isPending && "pointer-events-none opacity-50",
-            )}
-            ref={tree.ref}
+        <Link
+            href={`/trees/${tree.id}/edit`}
+            className={cn(tree.isPending && "pointer-events-none opacity-50")}
         >
-            <div className="h-20 w-full rounded-md bg-gray-100 dark:bg-gray-800" />
-            <div className="mt-2 flex items-center justify-between">
-                <Link href={`/trees/${tree.id}/edit`} className="block">
+            <Card
+                className={
+                    "gap-0 p-3 shadow-xs transition-shadow duration-200 hover:shadow-md"
+                }
+                ref={tree.ref}
+            >
+                <div className="h-20 w-full rounded-md bg-gray-100 dark:bg-gray-800" />
+                <div className="mt-2 flex items-center justify-between">
                     <CardTitle className="line-clamp-1 flex items-center gap-2 text-sm">
                         <TreePineIcon className="size-4 shrink-0" />
                         <h3>{tree.title}</h3>
                     </CardTitle>
-                </Link>
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button
-                            size="icon"
-                            variant={"secondary"}
-                            className="size-6 rounded-full"
-                        >
-                            <EllipsisIcon />
-                            <span className="sr-only">خيارات</span>
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <ConfirmActionAlert
-                            title="هل أنت متأكد من حذفك الشحرة؟"
-                            description="هذا العملية لا يمكن التراجع عنها."
-                            onConfirm={handleDelete}
-                        >
-                            <DropdownMenuItem
-                                variant="destructive"
-                                onSelect={(e) => e.preventDefault()}
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button
+                                size="icon"
+                                variant={"secondary"}
+                                className="size-6 rounded-full"
                             >
-                                <Trash2Icon />
-                                حذف الشجرة
-                            </DropdownMenuItem>
-                        </ConfirmActionAlert>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </div>
-        </Card>
+                                <EllipsisIcon />
+                                <span className="sr-only">خيارات</span>
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <ConfirmActionAlert
+                                title="هل أنت متأكد من حذفك الشحرة؟"
+                                description="هذا العملية لا يمكن التراجع عنها."
+                                onCancel={(e) => e.stopPropagation()}
+                                onConfirm={(e) => {
+                                    e.stopPropagation();
+                                    handleDelete();
+                                }}
+                            >
+                                <DropdownMenuItem
+                                    variant="destructive"
+                                    onClick={(e) => e.stopPropagation()}
+                                    onSelect={(e) => e.preventDefault()}
+                                >
+                                    <Trash2Icon />
+                                    حذف الشجرة
+                                </DropdownMenuItem>
+                            </ConfirmActionAlert>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
+            </Card>
+        </Link>
     );
 }
 
