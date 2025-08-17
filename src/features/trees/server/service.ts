@@ -17,10 +17,9 @@ export class TreesService {
     }: TreesSearchParams & {
         userId: string;
     }) {
-        const skip = limit * cursor;
         const trees = await this.treeRepository.findMany({
-            skip: skip,
             take: limit,
+            cursor,
             search,
             userId,
         });

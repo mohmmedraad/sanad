@@ -18,7 +18,9 @@ export default function TreeList({ initialTrees, ...props }: TreeListProps) {
         isLoading,
         isRefetching,
     } = useTreesInfiniteQuery(
-        {},
+        {
+            limit: 10,
+        },
         {
             initialData: initialTrees,
         },

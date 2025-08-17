@@ -12,10 +12,10 @@ export type UpdateTreeSchema = inferSchemaType<typeof updateTreeSchema>;
 
 export interface ITreeRepository {
     findMany(params: {
-        skip: number;
         take: number;
         search: string;
         userId?: string;
+        cursor?: Date;
     }): Promise<Tree[]>;
 
     findById(id: string): Promise<Tree | undefined>;

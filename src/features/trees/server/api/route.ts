@@ -22,7 +22,7 @@ const treesRoute = createTRPCRouter({
 
             return {
                 data: trees,
-                nextCursor: input.cursor + 1,
+                nextCursor: trees.length > 0 ? trees.at(-1)?.createdAt : null,
                 success: true,
             };
         }),

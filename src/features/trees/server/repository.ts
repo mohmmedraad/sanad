@@ -7,25 +7,25 @@ import type { ITreeRepository, UpdateTreeSchema } from "./types";
 export class TreeRepository implements ITreeRepository {
     constructor(private db: DB) {}
 
-    findMany(params: {
-        search: string;
-        skip: number;
+    async findMany(params: {
+        search?: string;
         take: number;
         userId?: string;
+        cursor?: Date;
     }): Promise<Tree[]> {
         return this.db.query.tree.findMany({
-            where: (tree, { eq, and }) =>
+            where: (tree, { eq, and, lt, like }) =>
                 and(
                     params.userId ? eq(tree.userId, params.userId) : undefined,
                     params.search
-                        ? eq(tree.title, `%s${params.search}%s`)
+                        ? like(tree.title, `%${params.search}%`)
+                        : undefined,
+                    params.cursor
+                        ? lt(tree.createdAt, params.cursor)
                         : undefined,
                 ),
-
-            orderBy: (tree, { desc }) => [desc(tree.createdAt)],
-
-            offset: params.skip,
             limit: params.take,
+            orderBy: (tree, { desc }) => [desc(tree.createdAt)],
         });
     }
 

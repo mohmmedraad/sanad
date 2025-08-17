@@ -21,9 +21,11 @@ import {
 import { Input } from "@/components/ui/input";
 import type { inferSchemaType } from "@/lib/utils";
 import { api } from "@/trpc/react";
+import type { Tree } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { useCreateTree } from "../hooks";
 import { addTreeSchema } from "../schema";
 
@@ -38,11 +40,92 @@ export default function CreateTreeButton(props: CreateTreeButtonProps) {
     });
     const [open, setOpen] = useState(false);
     const utils = api.useUtils();
-    const { createTree, isPending, isSuccess } = useCreateTree({
-        onSuccess: () => {
+    const newTreeId = useId();
+
+    const { createTree, isPending } = useCreateTree({
+        onMutate: async (tree) => {
+            await utils.trees.list.cancel();
+            const queryKey = {
+                limit: 10,
+            };
+
+            const previousData = utils.trees.list.getInfiniteData(queryKey);
+
+            const newTree = {
+                id: newTreeId,
+                ...tree,
+                isPending: true,
+            } as unknown as Tree;
+            utils.trees.list.setInfiniteData(queryKey, (oldData) => {
+                if (!oldData) {
+                    return {
+                        pages: [
+                            {
+                                data: [newTree],
+                                success: true,
+                                nextCursor: null,
+                            },
+                        ],
+                        pageParams: [null],
+                    };
+                }
+
+                // biome-ignore lint/style/noNonNullAssertion: <explanation>
+                const firstPage = oldData.pages[0]!;
+                const updatedFirstPage = {
+                    ...firstPage,
+                    data: [newTree, ...firstPage.data],
+                };
+
+                return {
+                    ...oldData,
+                    pages: [updatedFirstPage, ...oldData.pages.slice(1)],
+                };
+            });
+
             setOpen(false);
-            utils.trees.list.invalidate();
             form.reset();
+
+            return { previousData };
+        },
+        onSuccess: (createdPost) => {
+            utils.trees.list.setInfiniteData({ limit: 10 }, (oldData) => {
+                if (!oldData) return oldData;
+
+                return {
+                    ...oldData,
+                    pages: oldData.pages.map((page, pageIndex) => {
+                        if (pageIndex === 0) {
+                            return {
+                                ...page,
+                                data: page.data.map((tree) =>
+                                    tree.id === newTreeId
+                                        ? createdPost.data
+                                        : tree,
+                                ),
+                            };
+                        }
+                        return page;
+                    }),
+                };
+            });
+        },
+
+        onError: (_, variables, context) => {
+            // @ts-ignore
+            if (context.previousData) {
+                utils.trees.list.setInfiniteData(
+                    {
+                        limit: 10,
+                    },
+                    // @ts-ignore
+                    context.previousData,
+                );
+            }
+
+            toast.error("حدث خطأ اثناء اضافة الشجرة");
+            setOpen(true);
+            form.setValue("title", variables.title);
         },
     });
 

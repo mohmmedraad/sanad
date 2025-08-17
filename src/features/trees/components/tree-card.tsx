@@ -12,20 +12,63 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDeleteTree } from "@/features/trees/hooks";
+import { cn } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export default function TreeCard(tree: {
     id: string;
     title: string;
+    isPending?: boolean;
     ref?: React.Ref<HTMLDivElement>;
 }) {
-    const { deleteTree, isSuccess } = useDeleteTree({
-        onSuccess: () => {
-            utils.trees.list.invalidate();
+    const utils = api.useUtils();
+
+    const { deleteTree } = useDeleteTree({
+        onMutate: async (treeToDelete) => {
+            await utils.trees.list.cancel();
+            const queryKey = {
+                limit: 10,
+            };
+
+            const previousData = utils.trees.list.getInfiniteData(queryKey);
+
+            utils.trees.list.setInfiniteData(queryKey, (oldData) => {
+                if (!oldData) {
+                    return oldData;
+                }
+
+                const newPages = oldData.pages.map((page) => ({
+                    ...page,
+                    data: page.data.filter(
+                        (tree) => tree.id !== treeToDelete.id,
+                    ),
+                }));
+
+                return {
+                    ...oldData,
+                    pages: newPages,
+                };
+            });
+
+            return { previousData };
+        },
+        onError: (_, variables, context) => {
+            // @ts-ignore
+            if (context.previousData) {
+                utils.trees.list.setInfiniteData(
+                    {
+                        limit: 10,
+                    },
+                    // @ts-ignore
+                    context.previousData,
+                );
+            }
+
+            toast.error("حدث خطأ اثناء حذف الشجرة");
         },
     });
-    const utils = api.useUtils();
 
     const handleDelete = () => {
         deleteTree({ id: tree.id });
@@ -33,7 +76,10 @@ export default function TreeCard(tree: {
 
     return (
         <Card
-            className="gap-0 p-3 shadow-xs transition-shadow duration-200 hover:shadow-md"
+            className={cn(
+                "gap-0 p-3 shadow-xs transition-shadow duration-200 hover:shadow-md",
+                tree.isPending && "pointer-events-none opacity-50",
+            )}
             ref={tree.ref}
         >
             <div className="h-20 w-full rounded-md bg-gray-100 dark:bg-gray-800" />

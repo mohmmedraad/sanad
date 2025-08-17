@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const treesSearchParamsSchema = z.object({
-    cursor: z.coerce.number().optional().default(0).catch(0),
+    cursor: z.coerce.date().optional(),
     limit: z.coerce.number().optional().default(10).catch(10),
     search: z.string().optional().default(""),
 });
