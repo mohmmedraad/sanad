@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTreeEditorStore } from "@/store/tree-editor-store";
 import { Panel } from "@xyflow/react";
+import Link from "next/link";
 import { useCallback } from "react";
 import { useImportFromMindmup } from "../../hooks/tree-editor/use-import-from-mindmup";
 import ExportTreeButton from "./export-tree-button";
@@ -43,6 +44,18 @@ export default function TreeOptionsPanel() {
                             </DropdownMenuItem>
                         </ExportTreeButton>
                         <ToggleMiniMap />
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                        <Link href={"/"}>
+                            <DropdownMenuItem>الصفحة الرئيسية</DropdownMenuItem>
+                        </Link>
+
+                        <Link href={"/profile/trees"}>
+                            <DropdownMenuItem className="flex items-center justify-between">
+                                المشجرات
+                            </DropdownMenuItem>
+                        </Link>
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup className="flex justify-between">

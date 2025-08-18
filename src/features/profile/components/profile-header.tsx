@@ -1,3 +1,4 @@
+import CustomBreadcrumb from "@/components/custom-breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
@@ -10,7 +11,9 @@ export default function ProfileHeader() {
                     orientation="vertical"
                     className="mx-2 data-[orientation=vertical]:h-4"
                 />
-                <h1 className="font-medium text-base">المشجرات</h1>
+                <CustomBreadcrumb
+                    links={[{ name: "المشجرات", href: "/profile/trees" }]}
+                />
             </div>
         </header>
     );
