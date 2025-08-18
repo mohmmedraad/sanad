@@ -1,12 +1,18 @@
 import { Label } from "@/components/ui/label";
 import NumberInput from "@/components/ui/number-input";
-import { useTreeEditorStore } from "@/store/tree-editor-store";
+import {
+    useTreeEditorStore,
+    useTreeInteractionStore,
+} from "@/store/tree-editor-store";
 import { memo, useCallback, useId } from "react";
 import { changeNodes } from "../../lib/utils";
-import type { Node } from "../../types/tree-editor";
 
-export default function NodeLayoutController({ node }: { node: Node }) {
+export default function NodeLayoutController() {
     const setNodes = useTreeEditorStore((state) => state.setNodes);
+    const nodes = useTreeEditorStore((state) => state.nodes);
+    const activeNode = useTreeInteractionStore((state) => state.activeNode);
+
+    const node = nodes.find((node) => node.id === activeNode);
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     const handleXChange = useCallback(

@@ -4,19 +4,9 @@ import {
     useTreeEditorStore,
     useTreeInteractionStore,
 } from "@/store/tree-editor-store";
-import { Panel, useKeyPress } from "@xyflow/react";
-
+import { Panel, useKeyPress, useNodesData } from "@xyflow/react";
 import { NarratorNodeDetails } from "./nodes/narrator-node";
 import { SpeakerNodeDetails } from "./nodes/speaker-node";
-
-const NODES = {
-    speaker: {
-        detailsComponent: SpeakerNodeDetails,
-    },
-    narrator: {
-        detailsComponent: NarratorNodeDetails,
-    },
-};
 
 export default function NodeDetailsPanel() {
     const activeNode = useTreeInteractionStore((state) => state.activeNode);
@@ -24,16 +14,10 @@ export default function NodeDetailsPanel() {
         (state) => state.setActiveNode,
     );
     const setNodes = useTreeEditorStore((state) => state.setNodes);
-    const nodes = useTreeEditorStore((state) => state.nodes);
+    const node = useNodesData(activeNode ?? "");
     const isEscape = useKeyPress("Escape");
 
-    if (!activeNode) return null;
-
-    const node = nodes.find((node) => node.id === activeNode);
-
-    if (!node) return null;
-
-    const NodeDetails = NODES[node.type].detailsComponent;
+    if (!activeNode || !node) return null;
 
     if (isEscape) {
         setActiveNode(null);
@@ -59,7 +43,7 @@ export default function NodeDetailsPanel() {
                         onClick={() => {
                             setNodes((nodes) => {
                                 const index = nodes.findIndex(
-                                    (n) => n.id === node.id,
+                                    (n) => n.id === activeNode,
                                 );
                                 if (index !== -1) nodes.splice(index, 1);
                             });
@@ -69,8 +53,15 @@ export default function NodeDetailsPanel() {
                         <Trash2Icon />
                     </Button>
                 </div>
-                {/* @ts-ignore */}
-                <NodeDetails node={node} />
+                {node.type === "narrator" && (
+                    /* @ts-ignore */
+                    <NarratorNodeDetails node={node} />
+                )}
+
+                {node.type === "speaker" && (
+                    // @ts-ignore
+                    <SpeakerNodeDetails node={node} />
+                )}
             </div>
         </Panel>
     );

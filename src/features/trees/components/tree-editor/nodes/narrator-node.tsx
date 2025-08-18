@@ -1,3 +1,4 @@
+import type { NarratorsTable } from "@/client-db/schema";
 import {
     Accordion,
     AccordionContent,
@@ -7,158 +8,71 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { narratorGradesTranslation } from "@/constants";
+import { grades } from "@/constants";
 import { changeNodes, getCustomNarrator } from "@/features/trees/lib/utils";
-import { useNarratorsLiveQuery } from "@/hooks/use-narrators";
 import { cn } from "@/lib/utils";
 import {
     useTreeEditorStore,
     useTreeInteractionStore,
 } from "@/store/tree-editor-store";
-import type { NarratorGrade } from "@/types";
 import { type NodeProps, Position } from "@xyflow/react";
-import { type VariantProps, cva } from "class-variance-authority";
-import { memo, useMemo } from "react";
-import type { NarratorNode as NodeType } from "../../../types/tree-editor";
-import NarratorGradeSelect from "../narrator-grade-select";
+import { memo, useCallback } from "react";
+import type {
+    NarratorType,
+    NarratorNode as NodeType,
+} from "../../../types/tree-editor";
 import NarratorSelect from "../narrator-select";
 import { Node, NodeHandle } from "../node";
 import NodeLayoutController from "../node-layout-controller";
-
-const narratorNodeVariants = cva(
-    "relative z-[10] flex size-full min-h-[50px] min-w-[190px] items-center justify-center rounded-full border border-2 bg-background transition-[color,box-shadow] duration-200 data-[selected=true]:ring-[3px] data-[selected=true]:ring-current/50",
-    {
-        variants: {
-            variant: {
-                companion: "border-current text-narrator-companion",
-                "thiqa-thiqa": "border-current text-narrator-thiqa-thiqa",
-                thiqa: "border-current text-narrator-thiqa",
-                saduq: "border-current text-narrator-saduq",
-                "saduq-yahim": "border-current text-narrator-saduq-yahim",
-                maqbool: "border-current text-narrator-maqbool",
-                mastur: "border-current text-narrator-mastur",
-                weak: "border-current text-narrator-weak",
-                majhool: "border-current text-narrator-majhool",
-                matruk: "border-current text-narrator-matruk",
-                muttaham: "border-current text-narrator-muttaham",
-                kadhdhaab: "border-current text-narrator-kadhdhaab",
-            },
-        },
-        defaultVariants: {
-            variant: "majhool",
-        },
-    },
-);
 
 function NarratorNode({
     data,
     selected,
     className,
-    variant,
     ...props
-}: React.ComponentProps<"div"> &
-    VariantProps<typeof narratorNodeVariants> &
-    NodeProps<NodeType>) {
+}: React.ComponentProps<"div"> & NodeProps<NodeType>) {
     const setActiveNode = useTreeInteractionStore(
         (state) => state.setActiveNode,
     );
     const activeNode = useTreeInteractionStore((state) => state.activeNode);
-    const narrators = useNarratorsLiveQuery();
-
-    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-    const narratorFullInfo = useMemo(() => {
-        if (!data.narrator.id) {
-            return data.narrator;
-        }
-
-        // @ts-ignore
-        return narrators?.find((n) => n.id === data.narrator.id);
-        // @ts-ignore
-    }, [data.narrator.id, narrators]);
-
-    const narrator = narratorFullInfo ?? data.narrator;
-
-    const grade = narrator?.id
-        ? (narrator?.grade ?? "companion")
-        : narrator?.grade;
-    const name = narrator?.name;
+    const narrator = data.narrator;
 
     return (
         <Node
             className={cn(
                 "react-flow__handle-top-narrator z-auto!",
-                narratorNodeVariants({
-                    variant: grade,
-                    className,
-                }),
+                "relative z-[10] flex size-full min-h-[50px] min-w-[190px] items-center justify-center rounded-full border-2 border-current bg-background text-[var(--narrator-current-bg)] transition-[color,box-shadow] duration-200 data-[selected=true]:ring-[3px] data-[selected=true]:ring-current/50",
             )}
             onClick={() => setActiveNode(props.id)}
             data-selected={activeNode === props.id}
             onDragCapture={() => {
-                console.log("double clicked");
                 setActiveNode(null);
+            }}
+            style={{
+                // @ts-ignore
+                "--narrator-current-color": narrator.grade.color,
+                "--narrator-current-bg": narrator.grade.backgroundColor,
             }}
         >
             <NarratorNodeHandles />
-            <NarratorNodeGrade grade={grade}>
-                {narrator?.gradeAr
-                    ? narrator.gradeAr
-                    : narratorGradesTranslation[grade as NarratorGrade]}
-            </NarratorNodeGrade>
+            <NarratorNodeGrade>{narrator?.grade.text}</NarratorNodeGrade>
             <div className="m-[1px] w-full px-4 text-card-foreground">
-                {name}
+                {narrator.name}
             </div>
         </Node>
     );
 }
 
-const narratorNodeGradeVariants = cva(
-    "-translate-x-1/2 -translate-y-[calc(100%+2px)] after:-left-1 before:-right-1 absolute top-0 left-1/2 z-[-2] h-[22px] w-[95px] rounded-t-full text-sm text-white before:absolute before:top-5 before:size-4 before:rounded-full before:bg-[var(--current)] after:absolute after:top-5 after:size-4 after:rounded-full after:bg-[var(--current)]",
-    {
-        variants: {
-            variant: {
-                companion:
-                    "bg-[var(--current)] text-narrator-companion-foreground [--current:var(--narrator-companion)]",
-                "thiqa-thiqa":
-                    "bg-narrator-thiqa-thiqa text-narrator-thiqa-thiqa-foreground [--current:var(--narrator-thiqa-thiqa)]",
-                thiqa: "bg-narrator-thiqa text-narrator-thiqa-foreground [--current:var(--narrator-thiqa)]",
-                saduq: "bg-narrator-saduq text-narrator-saduq-foreground [--current:var(--narrator-saduq)]",
-                "saduq-yahim":
-                    "bg-narrator-saduq-yahim text-narrator-saduq-yahim-foreground [--current:var(--narrator-saduq-yahim)]",
-                maqbool:
-                    "bg-narrator-maqbool text-narrator-maqbool-foreground [--current:var(--narrator-maqbool)]",
-                mastur: "bg-narrator-mastur text-narrator-mastur-foreground [--current:var(--narrator-mastur)]",
-                weak: "bg-narrator-weak text-narrator-weak-foreground [--current:var(--narrator-weak)]",
-                majhool:
-                    "bg-narrator-majhool text-narrator-majhool-foreground [--current:var(--narrator-majhool)]",
-                matruk: "bg-narrator-matruk text-narrator-matruk-foreground [--current:var(--narrator-matruk)]",
-                muttaham:
-                    "bg-narrator-muttaham text-narrator-muttaham-foreground [--current:var(--narrator-muttaham)]",
-                kadhdhaab:
-                    "bg-narrator-kadhdhaab text-narrator-kadhdhaab-foreground [--current:var(--narrator-kadhdhaab)]",
-            },
-        },
-        defaultVariants: {
-            variant: "majhool",
-        },
-    },
-);
-
 function NarratorNodeGrade({
-    grade,
     className,
     ...props
-}: React.ComponentProps<"div"> &
-    VariantProps<typeof narratorNodeGradeVariants> & {
-        grade?: NarratorGrade;
-    }) {
+}: React.ComponentProps<"div">) {
     return (
         <div
             className={cn(
-                narratorNodeGradeVariants({
-                    variant: grade,
-                    className,
-                }),
+                "-translate-x-1/2 -translate-y-[calc(100%+2px)] after:-left-1 before:-right-1 absolute top-0 left-1/2 z-[-2] h-[22px] w-[95px] rounded-t-full text-sm text-white before:absolute before:top-5 before:size-4 before:rounded-full before:bg-[var(--current)] after:absolute after:top-5 after:size-4 after:rounded-full after:bg-[var(--current)]",
+                "bg-[var(--narrator-current-bg)] text-[var(--narrator-current-color)] [--current:var(--narrator-current-bg)]",
+                className,
             )}
             {...props}
         />
@@ -180,10 +94,8 @@ function NarratorNodeHandles() {
     );
 }
 
+// Main component
 export const NarratorNodeDetails = memo(({ node }: { node: NodeType }) => {
-    const setNodes = useTreeEditorStore((state) => state.setNodes);
-    const customNarrator = getCustomNarrator(node.data.narrator);
-
     return (
         <Tabs defaultValue="details" className="mt-2 w-full">
             <TabsList className="w-full">
@@ -191,124 +103,274 @@ export const NarratorNodeDetails = memo(({ node }: { node: NodeType }) => {
                 <TabsTrigger value="properties">السمات</TabsTrigger>
             </TabsList>
             <TabsContent value="details">
-                <div className="mt-4 space-y-2">
-                    <div>
-                        <Label className="mb-2" id="narrator-select">
-                            الراوي
-                        </Label>
-                        <NarratorSelect
-                            id="narrator-select"
-                            // @ts-ignore
-                            narratorId={node.data.narrator.id?.toString()}
-                            onChange={(value) => {
-                                setNodes((nodes) =>
-                                    changeNodes(nodes, node.id, (node) => {
-                                        // @ts-ignore
-                                        node.data.narrator = {
-                                            id: value.id,
-                                            name: value.name,
-                                            grade: value.grade,
-                                            gradeAr: value.gradeAr,
-                                            gradeEn: value.gradeEn,
-                                        };
-                                    }),
-                                );
-                            }}
-                        />
-                    </div>
-
-                    <Accordion
-                        type="single"
-                        collapsible
-                        className="w-full"
-                        defaultValue={customNarrator ? "custom-narrator" : ""}
-                    >
-                        <AccordionItem value="custom-narrator">
-                            <AccordionTrigger>راوي مخصص</AccordionTrigger>
-                            <AccordionContent>
-                                <div className="space-y-4 pt-2">
-                                    <div>
-                                        <Label
-                                            htmlFor="custom-narrator-name"
-                                            className="mb-2"
-                                        >
-                                            اسم الراوي
-                                        </Label>
-                                        <Input
-                                            id="custom-narrator-name"
-                                            placeholder="أدخل اسم الراوي"
-                                            value={customNarrator?.name || ""}
-                                            onChange={(e) => {
-                                                setNodes((nodes) =>
-                                                    changeNodes(
-                                                        nodes,
-                                                        node.id,
-                                                        (node) => {
-                                                            // @ts-ignore
-                                                            node.data.narrator =
-                                                                {
-                                                                    name: e
-                                                                        .target
-                                                                        .value,
-                                                                    grade:
-                                                                        // @ts-ignore
-                                                                        node
-                                                                            .data
-                                                                            .narrator
-                                                                            .grade ||
-                                                                        "companion",
-                                                                };
-                                                        },
-                                                    ),
-                                                );
-                                            }}
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <Label
-                                            htmlFor="custom-narrator-grade"
-                                            className="mb-2"
-                                        >
-                                            الدرجة
-                                        </Label>
-                                        <NarratorGradeSelect
-                                            className="w-full"
-                                            value={customNarrator?.grade || ""}
-                                            onValueChange={(value) => {
-                                                setNodes((nodes) =>
-                                                    changeNodes(
-                                                        nodes,
-                                                        node.id,
-                                                        (node) => {
-                                                            // @ts-ignore
-                                                            node.data.narrator =
-                                                                {
-                                                                    name:
-                                                                        node
-                                                                            .data
-                                                                            .narrator
-                                                                            .name ||
-                                                                        "راوي",
-                                                                    grade: value,
-                                                                };
-                                                        },
-                                                    ),
-                                                );
-                                            }}
-                                        />
-                                    </div>
-                                </div>
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                </div>
+                <NarratorDetailsTab node={node} />
             </TabsContent>
             <TabsContent value="properties">
-                <NodeLayoutController node={node} />
+                <NodeLayoutController />
             </TabsContent>
         </Tabs>
     );
 });
+
+const NarratorDetailsTab = memo(({ node }: { node: NodeType }) => {
+    const customNarrator = getCustomNarrator(node.data.narrator);
+
+    return (
+        <div className="mt-4 space-y-2">
+            <NarratorSelector
+                nodeId={node.id}
+                narratorId={node.data.narrator.id?.toString()}
+            />
+            <CustomNarratorSection
+                node={node}
+                customNarrator={customNarrator}
+            />
+        </div>
+    );
+});
+
+// Narrator selector component
+const NarratorSelector = memo(
+    ({ narratorId, nodeId }: { nodeId: string; narratorId?: string }) => {
+        const setNodes = useTreeEditorStore((state) => state.setNodes);
+
+        const handleNarratorChange = useCallback(
+            (value: NarratorsTable) => {
+                setNodes((nodes) =>
+                    changeNodes(nodes, nodeId, (node) => {
+                        const grade = grades[value.grade];
+                        // @ts-ignore
+                        node.data.narrator = {
+                            id: value.id,
+                            name: value.name,
+                            grade: {
+                                text: value.gradeAr,
+                                color: grade.color,
+                                backgroundColor: grade.backgroundColor,
+                            },
+                        };
+                    }),
+                );
+            },
+            [nodeId, setNodes],
+        );
+
+        return (
+            <div>
+                <Label className="mb-2" id="narrator-select">
+                    الراوي
+                </Label>
+                <NarratorSelect
+                    id="narrator-select"
+                    narratorId={narratorId}
+                    onChange={handleNarratorChange}
+                />
+            </div>
+        );
+    },
+);
+
+const CustomNarratorSection = memo(
+    ({
+        node,
+        customNarrator,
+    }: {
+        node: NodeType;
+        customNarrator: NarratorType | null;
+    }) => {
+        console.log({ customNarrator });
+        return (
+            <Accordion
+                type="single"
+                collapsible
+                className="w-full"
+                defaultValue={customNarrator ? "custom-narrator" : ""}
+            >
+                <AccordionItem value="custom-narrator">
+                    <AccordionTrigger>راوي مخصص</AccordionTrigger>
+                    <AccordionContent>
+                        <div className="space-y-4 pt-2">
+                            <CustomNarratorName
+                                nodeId={node.id}
+                                value={customNarrator?.name ?? ""}
+                            />
+                            <CustomNarratorGrade
+                                nodeId={node.id}
+                                value={customNarrator?.grade.text ?? ""}
+                            />
+                            <CustomNarratorColors
+                                node={node}
+                                customNarrator={customNarrator}
+                            />
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
+            </Accordion>
+        );
+    },
+);
+
+// Custom narrator name component
+const CustomNarratorName = memo(
+    ({
+        value,
+        nodeId,
+    }: {
+        value?: string;
+        nodeId: string;
+    }) => {
+        const setNodes = useTreeEditorStore((state) => state.setNodes);
+
+        const handleNameChange = useCallback(
+            (e: React.ChangeEvent<HTMLInputElement>) => {
+                setNodes((nodes) =>
+                    changeNodes<NodeType>(
+                        nodes as NodeType[],
+                        nodeId,
+                        (node) => {
+                            node.data.narrator.id = undefined;
+                            node.data.narrator.name = e.target.value;
+                        },
+                    ),
+                );
+            },
+            [nodeId, setNodes],
+        );
+
+        console.log("re-render");
+
+        return (
+            <div>
+                <Label htmlFor="custom-narrator-name" className="mb-2">
+                    اسم الراوي
+                </Label>
+                <Input
+                    id="custom-narrator-name"
+                    placeholder="أدخل اسم الراوي"
+                    value={value}
+                    onChange={handleNameChange}
+                />
+            </div>
+        );
+    },
+);
+
+// Custom narrator grade component
+const CustomNarratorGrade = memo(
+    ({
+        value,
+        nodeId,
+    }: {
+        value?: string;
+        nodeId: string;
+    }) => {
+        const setNodes = useTreeEditorStore((state) => state.setNodes);
+
+        const handleGradeChange = useCallback(
+            (e: React.ChangeEvent<HTMLInputElement>) => {
+                setNodes((nodes) =>
+                    changeNodes<NodeType>(
+                        nodes as NodeType[],
+                        nodeId,
+                        (node) => {
+                            node.data.narrator.id = undefined;
+                            node.data.narrator.grade.text = e.target.value;
+                        },
+                    ),
+                );
+            },
+            [nodeId, setNodes],
+        );
+
+        return (
+            <div>
+                <Label htmlFor="custom-narrator-grade" className="mb-2">
+                    الدرجة
+                </Label>
+                <Input
+                    id="custom-narrator-grade"
+                    placeholder="ادخل درجة الراوي"
+                    value={value}
+                    onChange={handleGradeChange}
+                />
+            </div>
+        );
+    },
+);
+
+// Custom narrator colors component
+const CustomNarratorColors = memo(
+    ({
+        node,
+        customNarrator,
+    }: {
+        node: NodeType;
+        customNarrator: NarratorType | null;
+    }) => {
+        const setNodes = useTreeEditorStore((state) => state.setNodes);
+
+        const handleBackgroundColorChange = useCallback(
+            (e: React.ChangeEvent<HTMLInputElement>) => {
+                setNodes((nodes) =>
+                    changeNodes<NodeType>(
+                        nodes as NodeType[],
+                        node.id,
+                        (node) => {
+                            node.data.narrator.id = undefined;
+                            node.data.narrator.grade.backgroundColor =
+                                e.target.value;
+                        },
+                    ),
+                );
+            },
+            [node.id, setNodes],
+        );
+
+        const handleTextColorChange = useCallback(
+            (e: React.ChangeEvent<HTMLInputElement>) => {
+                setNodes((nodes) =>
+                    changeNodes<NodeType>(
+                        nodes as NodeType[],
+                        node.id,
+                        (node) => {
+                            node.data.narrator.id = undefined;
+                            node.data.narrator.grade.color = e.target.value;
+                        },
+                    ),
+                );
+            },
+            [node.id, setNodes],
+        );
+
+        return (
+            <div className="flex gap-4">
+                <div>
+                    <Label htmlFor="background-color" className="mb-2">
+                        اللون
+                    </Label>
+                    <Input
+                        id="background-color"
+                        type="color"
+                        value={customNarrator?.grade.backgroundColor ?? ""}
+                        onChange={handleBackgroundColorChange}
+                        className="h-9 w-12 cursor-pointer p-0"
+                    />
+                </div>
+                <div>
+                    <Label htmlFor="grade-color" className="mb-2">
+                        لون الخط
+                    </Label>
+                    <Input
+                        id="grade-color"
+                        type="color"
+                        value={customNarrator?.grade.color ?? ""}
+                        onChange={handleTextColorChange}
+                        className="h-9 w-12 cursor-pointer p-0"
+                    />
+                </div>
+            </div>
+        );
+    },
+);
 
 export default memo(NarratorNode);

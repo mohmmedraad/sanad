@@ -1,5 +1,4 @@
 import type { inferSchemaType } from "@/lib/utils";
-import type { NarratorGrade } from "@/types";
 import type {
     Edge as ReactFlowEdge,
     Node as ReactFlowNode,
@@ -31,9 +30,12 @@ export type NarratorNode = ReactFlowNode<{
 export type NarratorType = {
     id?: number;
     name: string;
-    grade: NarratorGrade;
-    gradeAr: string;
-    gradeEn: string;
+    grade: {
+        text: string;
+        // value: NarratorGrade;
+        color: string;
+        backgroundColor: string;
+    };
 };
 
 export type Node = SpeakerNode | NarratorNode;
