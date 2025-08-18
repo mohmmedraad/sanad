@@ -20,7 +20,6 @@ import {
     QuoteIcon,
     SpeechIcon,
     SquareIcon,
-    TableIcon,
 } from "@/components/icons";
 import { BlockquotePlugin } from "@udecode/plate-block-quote/react";
 import { DatePlugin } from "@udecode/plate-date/react";
@@ -28,7 +27,6 @@ import { HEADING_KEYS } from "@udecode/plate-heading";
 import { HorizontalRulePlugin } from "@udecode/plate-horizontal-rule/react";
 import { INDENT_LIST_KEYS, ListStyleType } from "@udecode/plate-indent-list";
 import { LinkPlugin } from "@udecode/plate-link/react";
-import { TablePlugin } from "@udecode/plate-table/react";
 import { TogglePlugin } from "@udecode/plate-toggle/react";
 import {
     ParagraphPlugin,
@@ -87,11 +85,6 @@ const groups: Group[] = [
                 icon: <Heading4Icon />,
                 label: "عنوان 4",
                 value: HEADING_KEYS.h4,
-            },
-            {
-                icon: <TableIcon />,
-                label: "جدول",
-                value: TablePlugin.key,
             },
             {
                 icon: <QuoteIcon />,

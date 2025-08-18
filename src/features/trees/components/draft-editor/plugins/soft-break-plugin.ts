@@ -2,10 +2,6 @@
 
 import { BlockquotePlugin } from "@udecode/plate-block-quote/react";
 import { SoftBreakPlugin } from "@udecode/plate-break/react";
-import {
-    TableCellHeaderPlugin,
-    TableCellPlugin,
-} from "@udecode/plate-table/react";
 import { HadithPlugin } from "./hadith-plugin";
 
 export const softBreakPlugin = SoftBreakPlugin.configure({
@@ -15,12 +11,7 @@ export const softBreakPlugin = SoftBreakPlugin.configure({
             {
                 hotkey: "enter",
                 query: {
-                    allow: [
-                        BlockquotePlugin.key,
-                        TableCellPlugin.key,
-                        TableCellHeaderPlugin.key,
-                        HadithPlugin.key,
-                    ],
+                    allow: [BlockquotePlugin.key, HadithPlugin.key],
                 },
             },
         ],

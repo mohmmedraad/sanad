@@ -17,19 +17,11 @@ import { IndentListPlugin } from "@udecode/plate-indent-list/react";
 import { insertColumnGroup, toggleColumnGroup } from "@udecode/plate-layout";
 import { ColumnItemPlugin, ColumnPlugin } from "@udecode/plate-layout/react";
 import { LinkPlugin, triggerFloatingLink } from "@udecode/plate-link/react";
-import {
-    TableCellPlugin,
-    TablePlugin,
-    TableRowPlugin,
-} from "@udecode/plate-table/react";
 import { HadithPlugin } from "./plugins/hadith-plugin";
 
 export const STRUCTURAL_TYPES: string[] = [
     ColumnPlugin.key,
     ColumnItemPlugin.key,
-    TablePlugin.key,
-    TableRowPlugin.key,
-    TableCellPlugin.key,
 ];
 
 const ACTION_THREE_COLUMNS = "action_three_columns";
@@ -63,8 +55,6 @@ const insertBlockMap: Record<
     [ListStyleType.Disc]: insertList,
     [ACTION_THREE_COLUMNS]: (editor) =>
         insertColumnGroup(editor, { columns: 3, select: true }),
-    [TablePlugin.key]: (editor) =>
-        editor.getTransforms(TablePlugin).insert.table({}, { select: true }),
     [TocPlugin.key]: (editor) => insertToc(editor, { select: true }),
     [HadithPlugin.key]: insertHadith,
 };

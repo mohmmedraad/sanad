@@ -15,13 +15,11 @@ import {
     PilcrowIcon,
     QuoteIcon,
     SquareIcon,
-    TableIcon,
 } from "@/components/icons";
 import { BlockquotePlugin } from "@udecode/plate-block-quote/react";
 import { DatePlugin } from "@udecode/plate-date/react";
 import { HEADING_KEYS } from "@udecode/plate-heading";
 import { INDENT_LIST_KEYS, ListStyleType } from "@udecode/plate-indent-list";
-import { TablePlugin } from "@udecode/plate-table/react";
 import { TogglePlugin } from "@udecode/plate-toggle/react";
 import {
     ParagraphPlugin,
@@ -113,11 +111,6 @@ const groups: Group[] = [
                 keywords: ["قابلة للطي", "قابلة للتوسيع"],
                 label: "قائمة قابلة للطي",
                 value: TogglePlugin.key,
-            },
-            {
-                icon: <TableIcon />,
-                label: "جدول",
-                value: TablePlugin.key,
             },
             {
                 icon: <QuoteIcon />,

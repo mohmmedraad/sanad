@@ -9,11 +9,6 @@ import { useDraggable, useDropLine } from "@udecode/plate-dnd";
 import { HEADING_KEYS } from "@udecode/plate-heading";
 import { ColumnItemPlugin, ColumnPlugin } from "@udecode/plate-layout/react";
 import { BlockSelectionPlugin } from "@udecode/plate-selection/react";
-import {
-    TableCellPlugin,
-    TablePlugin,
-    TableRowPlugin,
-} from "@udecode/plate-table/react";
 import { TogglePlugin } from "@udecode/plate-toggle/react";
 import {
     MemoizedChildren,
@@ -37,11 +32,7 @@ import { cn } from "@/lib/utils";
 import { HadithPlugin } from "./plugins/hadith-plugin";
 import { STRUCTURAL_TYPES } from "./transforms";
 
-const UNDRAGGABLE_KEYS = [
-    ColumnItemPlugin.key,
-    TableRowPlugin.key,
-    TableCellPlugin.key,
-];
+const UNDRAGGABLE_KEYS = [ColumnItemPlugin.key];
 
 export const DraggableAboveNodes: RenderNodeWrapper = (props) => {
     const { editor, element, path } = props;
@@ -57,18 +48,6 @@ export const DraggableAboveNodes: RenderNodeWrapper = (props) => {
                 at: path,
                 match: {
                     type: editor.getType(ColumnPlugin),
-                },
-            });
-
-            if (block) {
-                return true;
-            }
-        }
-        if (path.length === 4 && !isType(editor, element, UNDRAGGABLE_KEYS)) {
-            const block = editor.api.some({
-                at: path,
-                match: {
-                    type: editor.getType(TablePlugin),
                 },
             });
 
@@ -197,7 +176,6 @@ function Gutter({
                 isNodeType(["ul", "ol"]) && "pb-0",
                 isNodeType(BlockquotePlugin.key) && "pb-0",
                 isNodeType([TogglePlugin.key, ColumnPlugin.key]) && "py-0",
-                isNodeType([TablePlugin.key]) && "pt-3 pb-0",
                 isNodeType([HadithPlugin.key]) && "pt-3 pb-0",
                 isInColumn && "mt-2 h-4 pt-0",
                 className,
