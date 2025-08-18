@@ -17,7 +17,11 @@ interface NodeBorderControlProps {
     onColorChange: (color: string) => void;
 }
 
-const borderStyles = ["solid", "dashed", "dotted"];
+const borderStyles = {
+    solid: "صلب",
+    dashed: "متقطع",
+    dotted: "منقط",
+} as const;
 
 export function NodeBorderControl({
     border,
@@ -58,10 +62,15 @@ export function NodeBorderControl({
                         <SelectValue placeholder="اختر النوع" />
                     </SelectTrigger>
                     <SelectContent>
-                        {borderStyles.map((borderStyle) => (
-                            <SelectItem key={borderStyle} value={borderStyle}>
-                                {borderStyle.charAt(0).toUpperCase() +
-                                    borderStyle.slice(1)}
+                        {Object.keys(borderStyles).map((style) => (
+                            <SelectItem key={style} value={style}>
+                                {/*{borderStyle.charAt(0).toUpperCase() +
+                                    borderStyle.slice(1)}*/}
+                                {
+                                    borderStyles[
+                                        style as keyof typeof borderStyles
+                                    ]
+                                }
                             </SelectItem>
                         ))}
                     </SelectContent>

@@ -121,7 +121,7 @@ export const SpeakerNodeDetails = memo(({ node }: { node: NodeType }) => {
                 </div>
             </TabsContent>
             <TabsContent value="properties">
-                <NodeLayoutController node={node} />
+                <NodeLayoutController />
 
                 <Separator className="my-6" />
 
