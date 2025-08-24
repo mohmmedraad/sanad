@@ -29,3 +29,14 @@ export function downloadImage(dataUrl: string, name = "image") {
 
     a.remove();
 }
+
+export function getIsAnyInputFocus() {
+    const activeEl = document.activeElement;
+    const isInputFocus =
+        activeEl &&
+        (activeEl.tagName === "INPUT" ||
+            activeEl.tagName === "TEXTAREA" ||
+            activeEl.getAttribute("contenteditable") === "true");
+
+    return isInputFocus;
+}

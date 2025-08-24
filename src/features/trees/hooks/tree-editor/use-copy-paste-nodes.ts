@@ -1,4 +1,4 @@
-import { getRandomId } from "@/lib/utils";
+import { getIsAnyInputFocus, getRandomId } from "@/lib/utils";
 import {
     useTreeEditorStore,
     useTreeInteractionStore,
@@ -180,15 +180,23 @@ export const useCopyPasteNodes = () => {
             const isModifierKey = e.metaKey || e.ctrlKey;
 
             if (isModifierKey && e.key === "c" && !e.shiftKey && !e.altKey) {
-                e.preventDefault();
-                e.stopPropagation();
-                handleCopyNodes();
+                const isAnyInputFocus = getIsAnyInputFocus();
+
+                if (!isAnyInputFocus) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleCopyNodes();
+                }
             }
 
             if (isModifierKey && e.key === "v" && !e.shiftKey && !e.altKey) {
-                e.preventDefault();
-                e.stopPropagation();
-                handlePasteNodes();
+                const isAnyInputFocus = getIsAnyInputFocus();
+
+                if (!isAnyInputFocus) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handlePasteNodes();
+                }
             }
         };
 
