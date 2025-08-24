@@ -73,10 +73,6 @@ export default function FeaturesSection() {
                     ))}
                 </div>
                 <div className="relative inset-shadow-2xs aspect-video w-full overflow-hidden rounded-2xl border bg-background shadow-lg shadow-zinc-950/15 ring-1 ring-background dark:inset-shadow-white/20">
-                    <div
-                        aria-hidden
-                        className="absolute inset-0 z-10 bg-linear-to-b from-70% from-transparent to-white"
-                    />
                     <video
                         loop
                         muted
