@@ -35,6 +35,7 @@ import {
     Heading4,
     HelpCircle,
     Highlighter,
+    Import,
     Italic,
     Link,
     Link2,
@@ -50,6 +51,7 @@ import {
     Monitor,
     Moon,
     MoreHorizontal,
+    NotebookPen,
     PaintBucket,
     PanelLeft,
     Pilcrow,
@@ -62,6 +64,7 @@ import {
     Speech,
     Square,
     SquareSplitHorizontal,
+    Star,
     Strikethrough,
     Sun,
     Table,
@@ -73,6 +76,7 @@ import {
     Undo2,
     Ungroup,
     Unlink,
+    UserPlus,
     X,
 } from "lucide-react";
 import type { JSX } from "react";
@@ -222,3 +226,7 @@ export const MenuIcon = (props: IconProps) => <Menu {...props} />;
 export const DownloadIcon = (props: IconProps) => <Download {...props} />;
 export const CopyIcon = (props: IconProps) => <Copy {...props} />;
 export const LogOutIcon = (props: IconProps) => <LogOut {...props} />;
+export const ImportIcon = (props: IconProps) => <Import {...props} />;
+export const NotebookPenIcon = (props: IconProps) => <NotebookPen {...props} />;
+export const StarIcon = (props: IconProps) => <Star {...props} />;
+export const UserPlusIcon = (props: IconProps) => <UserPlus {...props} />;

@@ -8,12 +8,7 @@ interface MaxWidthWrapperProps extends HTMLAttributes<HTMLDivElement> {
 
 const MaxWidthWrapper: FC<MaxWidthWrapperProps> = ({ className, children }) => {
     return (
-        <div
-            className={cn(
-                "mx-auto w-full max-w-screen-xl px-6 sm:px-10",
-                className,
-            )}
-        >
+        <div className={cn("mx-auto w-full max-w-5xl px-6", className)}>
             {children}
         </div>
     );
