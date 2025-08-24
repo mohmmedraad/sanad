@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 import { toast } from "sonner";
 import { LogoIcon } from "./icons";
+import { ModeToggleButton } from "./mode-toggle";
 import { Button } from "./ui/button";
 import { UserNav, UserNavSkeleton } from "./user-nav";
 
@@ -35,11 +36,11 @@ export default function Header() {
                 <Link
                     className="inline-block flex-none rounded-md text-xl focus:opacity-80 focus:outline-none"
                     href="/"
-                    aria-label="الجامعة المستنصرية"
+                    aria-label="سند"
                 >
                     <LogoIcon className="size-8" />
                 </Link>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
                     {isPending && <UserNavSkeleton />}
                     {!isPending && session?.user ? (
                         <UserNav user={session.user} />
@@ -49,7 +50,7 @@ export default function Header() {
                         <Button
                             variant="outline"
                             size="sm"
-                            className="w-full rounded-full"
+                            className="rounded-full"
                             onClick={() => handleLogin()}
                             disabled={isLoginPending}
                         >
@@ -66,6 +67,7 @@ export default function Header() {
                             </svg>
                         </Button>
                     )}
+                    <ModeToggleButton className="size-8 rounded-full" />
                 </div>
             </div>
         </header>
