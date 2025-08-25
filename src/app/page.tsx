@@ -22,6 +22,34 @@ export default function HomePage() {
 function HeroSection() {
     return (
         <section>
+            <div
+                className="absolute inset-0 z-[-1] h-screen dark:hidden"
+                style={{
+                    backgroundImage: `
+                    linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+                    linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)
+                  `,
+                    backgroundSize: "20px 30px",
+                    WebkitMaskImage:
+                        "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
+                    maskImage:
+                        "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
+                }}
+            />
+            <div
+                className="absolute inset-0 z-[-1] hidden h-screen dark:block"
+                style={{
+                    backgroundImage: `
+                  linear-gradient(to right, #1e293b 1px, transparent 1px),
+                  linear-gradient(to bottom, #1e293b 1px, transparent 1px)
+                `,
+                    backgroundSize: "20px 30px",
+                    WebkitMaskImage:
+                        "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
+                    maskImage:
+                        "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
+                }}
+            />
             <div className="relative pt-20">
                 <div className="-z-10 absolute inset-0 size-full [background:radial-gradient(125%_125%_at_50%_100%,transparent_0%,var(--color-background)_75%)]" />
                 <MaxWidthWrapper className="">
