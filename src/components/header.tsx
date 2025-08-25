@@ -1,6 +1,7 @@
 "use client";
 
-import { authClient, cn } from "@/lib/utils";
+import { authClient } from "@/lib/auth-client";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { LogoIcon } from "./icons";
 import { ModeToggleButton } from "./mode-toggle";

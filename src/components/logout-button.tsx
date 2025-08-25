@@ -1,6 +1,6 @@
 "use client";
 
-import { authClient } from "@/lib/utils";
+import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
 type LogoutButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
