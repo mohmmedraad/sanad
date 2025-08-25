@@ -1,7 +1,7 @@
 "use client";
 
 import { env } from "@/env";
-import { authClient } from "@/lib/utils";
+import { authClient } from "@/lib/auth-client";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Button } from "./ui/button";

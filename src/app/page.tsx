@@ -2,12 +2,14 @@ import FeaturesSection from "@/components/features-section";
 import Header from "@/components/header";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { buttonVariants } from "@/components/ui/button";
+import InitOneTap from "@/features/auth/components/init-one-tap";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function HomePage() {
     return (
         <>
+            <InitOneTap />
             <Header />
             <main>
                 <HeroSection />
