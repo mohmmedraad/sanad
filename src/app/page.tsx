@@ -3,6 +3,7 @@ import Header from "@/components/header";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { buttonVariants } from "@/components/ui/button";
 import InitOneTap from "@/features/auth/components/init-one-tap";
+import { GithubIcon, LinkedinIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,6 +15,7 @@ export default function HomePage() {
             <main>
                 <HeroSection />
                 <FeaturesSection />
+                <Footer />
             </main>
         </>
     );
@@ -113,5 +115,83 @@ function HeroSection() {
                 </div>
             </div>
         </section>
+    );
+}
+
+const SOCIALS = [
+    {
+        name: "Github",
+        link: "https://github.com/mohmmedraad/sanad",
+        icon: GithubIcon,
+    },
+    {
+        name: "LinkedIn",
+        link: "https://www.linkedin.com/in/mohammed-raad-abbas",
+        icon: LinkedinIcon,
+    },
+] as const;
+
+function Footer() {
+    return (
+        <footer className="relative pb-4">
+            <div
+                className="absolute inset-0 z-[-1] dark:hidden"
+                style={{
+                    backgroundImage: `
+                  linear-gradient(to right, #e5e7eb 1px, transparent 1px),
+                  linear-gradient(to bottom, #e5e7eb 1px, transparent 1px)
+                `,
+                    backgroundSize: "40px 40px",
+                    WebkitMaskImage:
+                        "radial-gradient(ellipse 50% 40% at 50% 50%, #000 60%, transparent 100%)",
+                    maskImage:
+                        "radial-gradient(ellipse 50% 40% at 50% 50%, #000 60%, transparent 100%)",
+                }}
+            />
+            <div
+                className="absolute inset-0 z-[-1] hidden dark:block"
+                style={{
+                    backgroundImage: `
+                  linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                  linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
+                `,
+                    backgroundSize: "40px 40px",
+                    WebkitMaskImage:
+                        "radial-gradient(ellipse 50% 40% at 50% 50%, #000 60%, transparent 100%)",
+                    maskImage:
+                        "radial-gradient(ellipse 50% 40% at 50% 50%, #000 60%, transparent 100%)",
+                }}
+            />
+
+            <div className="h-screen">
+                <MaxWidthWrapper className="flex h-full flex-col items-center justify-center gap-8">
+                    <h3 className="mx-auto w-full max-w-[700px] text-center text-6xl">
+                        انضم إلى سند اليوم وابدأ رحلة التعلم!
+                    </h3>
+                    <Link
+                        href="/login"
+                        className={buttonVariants({
+                            size: "lg",
+                            className: "mx-auto rounded-xl px-5 text-base",
+                        })}
+                    >
+                        أنشئ شجرتك الاولى
+                    </Link>
+                </MaxWidthWrapper>
+            </div>
+
+            <div className="flex items-center justify-center gap-4">
+                {SOCIALS.map((s) => (
+                    <Link
+                        key={s.link}
+                        href={s.link}
+                        target="_blank"
+                        className="rounded-full p-3 transition-all duration-75 hover:bg-gray-50 dark:hover:bg-gray-900"
+                    >
+                        <s.icon className="size-6 text-gray-800 dark:text-gray-200" />
+                    </Link>
+                ))}
+            </div>
+        </footer>
     );
 }
