@@ -20,10 +20,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import type { inferSchemaType } from "@/lib/utils";
-import { api } from "@/trpc/react";
+import { type RouterInputs, api } from "@/trpc/react";
 import type { Tree } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useCreateTree } from "../hooks";
@@ -41,22 +41,24 @@ export default function CreateTreeButton(props: CreateTreeButtonProps) {
     const [open, setOpen] = useState(false);
     const utils = api.useUtils();
     const newTreeId = useId();
+    const queryKeyRef = useRef<RouterInputs["trees"]["list"]>({
+        limit: 10,
+    });
 
     const { createTree, isPending } = useCreateTree({
         onMutate: async (tree) => {
             await utils.trees.list.cancel();
-            const queryKey = {
-                limit: 10,
-            };
 
-            const previousData = utils.trees.list.getInfiniteData(queryKey);
+            const previousData = utils.trees.list.getInfiniteData(
+                queryKeyRef.current,
+            );
 
             const newTree = {
                 id: newTreeId,
                 ...tree,
                 isPending: true,
             } as unknown as Tree;
-            utils.trees.list.setInfiniteData(queryKey, (oldData) => {
+            utils.trees.list.setInfiniteData(queryKeyRef.current, (oldData) => {
                 if (!oldData) {
                     return {
                         pages: [
@@ -89,7 +91,7 @@ export default function CreateTreeButton(props: CreateTreeButtonProps) {
             return { previousData };
         },
         onSuccess: (createdPost) => {
-            utils.trees.list.setInfiniteData({ limit: 10 }, (oldData) => {
+            utils.trees.list.setInfiniteData(queryKeyRef.current, (oldData) => {
                 if (!oldData) return oldData;
 
                 return {
@@ -115,9 +117,7 @@ export default function CreateTreeButton(props: CreateTreeButtonProps) {
             // @ts-ignore
             if (context.previousData) {
                 utils.trees.list.setInfiniteData(
-                    {
-                        limit: 10,
-                    },
+                    queryKeyRef.current,
                     // @ts-ignore
                     context.previousData,
                 );

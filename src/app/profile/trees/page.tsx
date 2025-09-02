@@ -14,6 +14,10 @@ export const metadata: Metadata = {
 async function ProfileTreesPage() {
     const initialTrees = await api.trees.list({});
 
+    console.dir(initialTrees, {
+        depth: Number.MAX_SAFE_INTEGER,
+    });
+
     return (
         <div className="@container" dir="rtl">
             <div className="sticky top-0 bg-background pt-4">

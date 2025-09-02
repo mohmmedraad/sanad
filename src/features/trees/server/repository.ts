@@ -12,7 +12,7 @@ export class TreeRepository implements ITreeRepository {
         take: number;
         userId?: string;
         cursor?: Date;
-    }): Promise<Tree[]> {
+    }) {
         return this.db.query.tree.findMany({
             where: (tree, { eq, and, lt, like }) =>
                 and(
@@ -26,6 +26,13 @@ export class TreeRepository implements ITreeRepository {
                 ),
             limit: params.take,
             orderBy: (tree, { desc }) => [desc(tree.createdAt)],
+            columns: {
+                id: true,
+                title: true,
+                userId: true,
+                createdAt: true,
+                updatedAt: true,
+            },
         });
     }
 

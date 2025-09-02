@@ -16,7 +16,7 @@ export interface ITreeRepository {
         search: string;
         userId?: string;
         cursor?: Date;
-    }): Promise<Tree[]>;
+    }): Promise<Omit<Tree, "draft" | "nodes" | "edges" | "showMiniMap">[]>;
 
     findById(id: string): Promise<Tree | undefined>;
 
