@@ -21,7 +21,11 @@ export default function NarratorTooltip({
         <Tooltip>
             <TooltipTrigger {...props}>{children}</TooltipTrigger>
 
-            <TooltipContent variant="secondary" className="max-w-[300px]">
+            <TooltipContent
+                variant="secondary"
+                className="max-w-[300px]"
+                onClick={(e) => e.stopPropagation()}
+            >
                 <ul className="grid gap-3 text-xs">
                     <li className="grid gap-1">
                         <span className="text-muted-foreground">
