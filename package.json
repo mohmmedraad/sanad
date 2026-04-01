@@ -12,7 +12,7 @@
         "db:migrate": "drizzle-kit migrate",
         "db:push": "drizzle-kit push",
         "db:studio": "drizzle-kit studio",
-        "dev": "next dev --turbo",
+        "dev": "next dev --turbopack",
         "preview": "next build && next start",
         "start": "next start",
         "typecheck": "tsc --noEmit",
@@ -94,17 +94,17 @@
         "html2canvas-pro": "1.5.11",
         "linkedom": "0.18.11",
         "lucide-react": "^0.525.0",
-        "next": "^15.2.3",
+        "next": "15.5.14",
         "next-themes": "^0.4.6",
         "nuqs": "^2.4.3",
         "pdf-lib": "1.17.1",
         "postgres": "^3.4.4",
-        "react": "^19.0.0",
+        "react": "19.2.4",
         "react-aria-components": "1.9.0",
         "react-day-picker": "^9.8.0",
         "react-dnd": "16.0.1",
         "react-dnd-html5-backend": "16.0.1",
-        "react-dom": "^19.0.0",
+        "react-dom": "19.2.4",
         "react-hook-form": "^7.54.2",
         "react-resizable-panels": "^3.0.3",
         "remark-gfm": "4.0.1",
@@ -125,8 +125,8 @@
         "@biomejs/biome": "1.9.4",
         "@tailwindcss/postcss": "^4.0.15",
         "@types/node": "^20.14.10",
-        "@types/react": "^19.0.0",
-        "@types/react-dom": "^19.0.0",
+        "@types/react": "19.2.14",
+        "@types/react-dom": "19.2.3",
         "drizzle-kit": "^0.30.5",
         "husky": "^9.1.7",
         "postcss": "^8.5.3",
@@ -137,5 +137,11 @@
     "ct3aMetadata": {
         "initVersion": "7.39.3"
     },
-    "packageManager": "pnpm@10.3.0"
+    "packageManager": "pnpm@10.3.0",
+    "pnpm": {
+        "overrides": {
+            "@types/react": "19.2.14",
+            "@types/react-dom": "19.2.3"
+        }
+    }
 }
