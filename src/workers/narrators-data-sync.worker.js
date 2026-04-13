@@ -10,19 +10,20 @@ const onMessage = async (
     try {
         const localNarratorsVersion = event.data.localNarratorsVersion;
 
-        const { data: version } = await apiFetch.narrators.version.query();
+        const { data, version } = await apiFetch.narrators.get.query({
+            version: localNarratorsVersion,
+        });
 
         console.log("[Worker] Server version:", version);
         console.log("[Worker] Local version:", localNarratorsVersion);
 
-        if (version === localNarratorsVersion) {
+        if (!data) {
             postMessage({
                 status: "no-change",
             });
             return;
         }
 
-        const { data } = await apiFetch.narrators.get.query();
         const narrators = data.map((item) => ({
             id: Number(item.rawi_index),
             name: item.name,
